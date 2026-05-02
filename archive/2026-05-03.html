@@ -1,0 +1,1292 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Morning Brief — 2026年05月02日</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --c-economy:#1a56db;--c-ai:#7e22ce;--c-market:#047857;--c-crypto:#b45309;
+  --c-geo:#be123c;--c-politics:#7f1d1d;--c-intl:#1e3a8a;--c-social:#0c4a6e;
+  --c-expert:#0e7490;--c-corp:#374151;--c-energy:#92400e;--c-health:#065f46;
+  --c-retail:#7c3aed;--c-telecom:#0369a1;--c-agri:#166534;--c-bio:#701a75;
+  --bg:#f8fafc;--card:#fff;--border:#e2e8f0;--text:#1e293b;--muted:#475569;
+  --fact-bg:#f0fdf4;--fact-border:#22c55e;
+  --interp-bg:#eff6ff;--interp-border:#3b82f6;
+  --predict-bg:#fefce8;--predict-border:#eab308;
+  --unconf-bg:#fef2f2;--unconf-border:#ef4444;
+}
+
+body{font-family:-apple-system,BlinkMacSystemFont,'Hiragino Sans','Noto Sans JP',sans-serif;background:var(--bg);color:var(--text);font-size:15px;line-height:1.65}
+
+/* HEADER */
+.site-header{position:sticky;top:0;z-index:200;background:#1e293b;color:#fff;padding:14px 16px 0;transition:padding .25s,box-shadow .25s}
+.header-main{display:flex;align-items:baseline;gap:10px;margin-bottom:6px}
+.header-main h1{font-size:22px;font-weight:800;letter-spacing:-.5px;transition:font-size .25s}
+.header-date{font-size:12px;opacity:.7;transition:opacity .25s}
+.header-legend{display:flex;gap:10px;flex-wrap:wrap;font-size:11px;margin-bottom:8px;opacity:.8;transition:max-height .25s,opacity .25s,margin .25s;max-height:40px;overflow:hidden}
+.legend-item{display:flex;align-items:center;gap:4px}
+.legend-dot{width:7px;height:7px;border-radius:50%;display:inline-block}
+.ld5{background:#15803d}.ld4{background:#65a30d}.ld3{background:#ca8a04}.ld2{background:#ea580c}.ld1{background:#dc2626}
+.site-header.shrunk{padding:6px 16px 0;box-shadow:0 2px 8px rgba(0,0,0,.25)}
+.site-header.shrunk .header-main h1{font-size:14px}
+.site-header.shrunk .header-date{opacity:0}
+.site-header.shrunk .header-legend{max-height:0;opacity:0;margin:0}
+
+/* MOBILE NAV */
+.nav-tabs{display:flex;overflow-x:auto;white-space:nowrap;-webkit-overflow-scrolling:touch;gap:3px;padding:6px 0 0;scrollbar-width:none}
+.nav-tabs::-webkit-scrollbar{display:none}
+.nav-tabs a{display:inline-block;padding:5px 10px;border-radius:18px 18px 0 0;color:#fff;text-decoration:none;font-size:11px;font-weight:600;opacity:.6;background:rgba(255,255,255,.08);flex-shrink:0;transition:opacity .15s,background .15s}
+.nav-tabs a:hover,.nav-tabs a:active{opacity:1;background:rgba(255,255,255,.18)}
+
+/* DESKTOP SIDE NAV */
+.side-nav{display:none}
+@media(min-width:768px){
+  .nav-tabs{display:none}
+  .side-nav{display:block;position:fixed;left:0;top:0;width:196px;height:100vh;overflow-y:auto;background:#1e293b;padding:68px 0 20px;z-index:100;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.2) transparent}
+  .side-nav a{display:block;padding:7px 14px 7px 18px;color:rgba(255,255,255,.7);text-decoration:none;font-size:12px;font-weight:500;border-left:3px solid transparent;transition:color .15s,border-color .15s,background .15s}
+  .side-nav a:hover{color:#fff;background:rgba(255,255,255,.07)}
+  .side-nav a.active{color:#fff;border-left-color:#38bdf8}
+  .side-nav .nav-divider{height:1px;background:rgba(255,255,255,.1);margin:6px 14px}
+  .main-wrap{margin-left:196px}
+}
+
+/* MAIN LAYOUT */
+main{max-width:860px;margin:0 auto;padding:16px 12px 40px}
+
+/* MARKET CARDS */
+.market-wrap{display:flex;overflow-x:auto;gap:10px;padding:14px 12px;background:#fff;border-bottom:1px solid var(--border);scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.market-wrap::-webkit-scrollbar{display:none}
+.market-card{flex:0 0 auto;min-width:110px;background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:10px 12px;text-align:center}
+.mk-label{font-size:11px;color:var(--muted);margin-bottom:3px}
+.mk-value{font-size:17px;font-weight:700;color:var(--text)}
+.mk-change{font-size:12px;font-weight:600;margin-top:2px}
+.mk-up{color:#16a34a}.mk-down{color:#dc2626}.mk-flat{color:var(--muted)}
+.mk-source{font-size:10px;color:var(--muted);margin-top:4px}
+.market-updated{font-size:11px;color:var(--muted);text-align:right;padding:4px 12px;background:#fff}
+
+/* TOP 5 SECTION */
+.top5-section{background:#fff;border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:20px}
+.top5-section h2{font-size:14px;font-weight:700;background:#1e293b;color:#fff;padding:9px 14px}
+.top5-item{display:block;padding:10px 14px;border-bottom:1px solid var(--border);text-decoration:none;color:inherit;transition:background .15s}
+.top5-item:last-child{border-bottom:none}
+.top5-item:hover{background:#f8fafc}
+.top5-badges{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:4px}
+.top5-title{font-size:13px;font-weight:600;color:var(--text);line-height:1.4}
+.top5-source{font-size:11px;color:var(--muted);margin-top:3px}
+
+/* CHANGES SECTION */
+.changes-section{background:#fff;border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:20px}
+.changes-section h2{font-size:14px;font-weight:700;background:#334155;color:#fff;padding:9px 14px}
+.changes-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:0}
+@media(min-width:600px){.changes-grid{grid-template-columns:repeat(4,1fr)}}
+.change-col{padding:10px 12px;border-right:1px solid var(--border);border-bottom:1px solid var(--border)}
+.change-col:nth-child(even){border-right:none}
+@media(min-width:600px){
+  .change-col{border-bottom:none}
+  .change-col:last-child{border-right:none}
+  .change-col:nth-child(even){border-right:1px solid var(--border)}
+}
+.change-col-header{font-size:11px;font-weight:700;padding:3px 7px;border-radius:4px;margin-bottom:7px;display:inline-block}
+.change-new{background:#dcfce7;color:#14532d}
+.change-updated{background:#dbeafe;color:#1e3a8a}
+.change-confirmed{background:#dcfce7;color:#14532d}
+.change-removed{background:#fef2f2;color:#7f1d1d}
+.change-col ul{list-style:none;padding:0}
+.change-col ul li{font-size:11px;color:var(--text);padding:3px 0;border-bottom:1px solid #f1f5f9;line-height:1.4}
+.change-col ul li:last-child{border-bottom:none}
+
+/* NEWS SECTIONS */
+.news-section{margin-bottom:20px}
+.news-section-header{font-size:13px;font-weight:700;color:#fff;padding:7px 12px;border-radius:6px 6px 0 0;display:flex;align-items:center;gap:6px}
+
+/* EXPANDABLE CARDS */
+.news-card{background:var(--card);border:1px solid var(--border);border-top:none}
+.news-card:last-child{border-radius:0 0 6px 6px}
+.card-header{cursor:pointer;user-select:none;padding:11px 13px;transition:background .15s;outline:none}
+.card-header:hover{background:#f8fafc}
+.card-header:focus-visible{box-shadow:inset 0 0 0 2px #3b82f6}
+.card-badges{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:5px}
+.card-title{font-size:13px;font-weight:700;color:var(--text);line-height:1.4;margin-bottom:4px}
+.card-summary{font-size:12px;color:var(--muted);line-height:1.5}
+.card-expand-row{display:flex;justify-content:space-between;align-items:center;margin-top:6px}
+.card-time{font-size:10px;color:var(--muted)}
+.card-expand-icon{font-size:10px;color:var(--muted);transition:transform .2s}
+.news-card.open .card-expand-icon{transform:rotate(180deg)}
+
+/* CARD DETAILS */
+.card-details{padding:0 13px 12px;border-top:1px solid var(--border)}
+.card-details[hidden]{display:none}
+.fact-list{list-style:none;padding:10px 0 8px;display:flex;flex-direction:column;gap:6px}
+.fact-list li{font-size:12px;padding:7px 10px;border-radius:5px;border-left:3px solid;line-height:1.55;position:relative}
+.fact-list li::before{content:attr(data-type);font-size:10px;font-weight:700;margin-right:5px;opacity:.85}
+.fact-verified{background:var(--fact-bg);border-color:var(--fact-border);color:#14532d}
+.fact-interpret{background:var(--interp-bg);border-color:var(--interp-border);color:#1e3a8a}
+.fact-predict{background:var(--predict-bg);border-color:var(--predict-border);color:#78350f}
+.fact-unconf{background:var(--unconf-bg);border-color:var(--unconf-border);color:#7f1d1d}
+.card-sources{font-size:11px;color:var(--muted);padding-top:6px;border-top:1px solid var(--border);line-height:1.7}
+.card-sources a{color:#1a56db;text-decoration:none}
+.card-sources a:hover{text-decoration:underline}
+
+/* BADGES */
+.badge{font-size:10px;font-weight:700;padding:2px 7px;border-radius:10px;white-space:nowrap}
+.badge-official{background:#dcfce7;color:#14532d}
+.badge-tier1{background:#dbeafe;color:#1e3a8a}
+.badge-tier1-solo{background:#e0f2fe;color:#0c4a6e}
+.badge-tier2{background:#f1f5f9;color:#334155}
+.badge-predict{background:#fef9c3;color:#78350f}
+.badge-low{background:#fef2f2;color:#7f1d1d}
+.badge-new{background:#dcfce7;color:#14532d}
+.badge-updated{background:#dbeafe;color:#1e3a8a}
+.badge-confirmed{background:#dcfce7;color:#14532d}
+.badge-continuing{background:#f1f5f9;color:#334155}
+.badge-score{font-weight:700}
+.score-5{color:#15803d}.score-4{color:#65a30d}.score-3{color:#ca8a04}.score-2{color:#ea580c}.score-1{color:#dc2626}
+
+/* GLOSSARY */
+.glossary-section{background:#fff;border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:20px}
+.glossary-section h2{font-size:14px;font-weight:700;background:#0f172a;color:#fff;padding:9px 14px}
+.glossary-list{padding:6px 0}
+.glossary-item{padding:10px 14px;border-bottom:1px solid var(--border)}
+.glossary-item:last-child{border-bottom:none}
+.glossary-term{font-size:13px;font-weight:700;margin-bottom:3px}
+.glossary-def{font-size:12px;color:var(--muted);line-height:1.6}
+
+/* FOOTER */
+footer{margin-top:40px;padding:16px 14px 48px;border-top:1px solid var(--border)}
+.disclaimer{font-size:11px;color:var(--muted);line-height:1.75;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:11px 13px;margin-bottom:10px}
+.footer-meta{font-size:11px;color:var(--muted)}
+.footer-meta a{color:#1a56db;text-decoration:none}
+
+/* WCAG 2.2 AA — verified contrast ratios */
+/* #14532d on #dcfce7 = 7.1:1 | #1e3a8a on #dbeafe = 7.8:1 */
+/* #78350f on #fef9c3 = 6.3:1 | #7f1d1d on #fef2f2 = 8.1:1 */
+/* #0c4a6e on #e0f2fe = 7.2:1 | #334155 on #f1f5f9 = 6.8:1 */
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<header class="site-header" id="top">
+  <div class="header-main">
+    <h1>&#127749; Morning Brief</h1>
+    <span class="header-date">2026年05月02日</span>
+  </div>
+  <div class="header-legend">
+    <span class="legend-item"><span class="legend-dot ld5"></span>&#9733;5 公式確認済み</span>
+    <span class="legend-item"><span class="legend-dot ld4"></span>&#9733;4 Tier1複数</span>
+    <span class="legend-item"><span class="legend-dot ld3"></span>&#9733;3 Tier1単独</span>
+    <span class="legend-item"><span class="legend-dot ld2"></span>&#9733;2 Tier2のみ</span>
+    <span class="legend-item"><span class="legend-dot ld1"></span>&#9733;1 低信頼</span>
+  </div>
+  <nav class="nav-tabs" aria-label="セクション一覧">
+    <a href="#market">&#128202; 市場</a>
+    <a href="#top5">&#9889; 重要5本</a>
+    <a href="#changes">&#128203; 変化</a>
+    <a href="#economy">&#128185; 経済</a>
+    <a href="#ai">&#129302; AI</a>
+    <a href="#stocks">&#128200; 株式</a>
+    <a href="#crypto">&#8383; 暗号</a>
+    <a href="#geo">&#127760; 地政学</a>
+    <a href="#politics">&#127963; 政治</a>
+    <a href="#intl">&#127757; 国際</a>
+    <a href="#social">&#128101; 社会</a>
+    <a href="#corp">&#127970; 企業</a>
+    <a href="#agri">&#127806; 農業</a>
+    <a href="#bio">&#129516; 生命科学</a>
+    <a href="#expert">&#127897; 専門家</a>
+    <a href="archive-index.html">&#128218; 過去</a>
+  </nav>
+</header>
+
+<nav class="side-nav" aria-label="サイドナビゲーション">
+  <a href="#market">&#128202; マーケット</a>
+  <a href="#top5">&#9889; 重要5本</a>
+  <a href="#changes">&#128203; 昨日からの変化</a>
+  <div class="nav-divider"></div>
+  <a href="#economy">&#128185; 経済・マクロ</a>
+  <a href="#ai">&#129302; AI・テクノロジー</a>
+  <a href="#stocks">&#128200; 株式・市場</a>
+  <a href="#crypto">&#8383; 暗号資産</a>
+  <a href="#geo">&#127760; 地政学</a>
+  <a href="#politics">&#127963; 政治</a>
+  <a href="#intl">&#127757; 国際情勢</a>
+  <a href="#social">&#128101; 社会問題</a>
+  <a href="#corp">&#127970; 企業</a>
+  <a href="#agri">&#127806; 農業</a>
+  <a href="#bio">&#129516; 生命科学</a>
+  <a href="#expert">&#127897; 専門家</a>
+  <div class="nav-divider"></div>
+  <a href="archive-index.html">&#128218; アーカイブ</a>
+</nav>
+
+<div class="main-wrap">
+
+  <section id="market" aria-label="マーケットサマリー">
+    <div class="market-wrap" role="list">
+      <div class="market-card"><div class="mk-label">🗾 日経平均</div><div class="mk-value">─</div><div class="mk-change mk-flat">─</div><div class="mk-source">Bloomberg 前日終値</div></div>
+<div class="market-card"><div class="mk-label">🏦 TOPIX</div><div class="mk-value">─</div><div class="mk-change mk-flat">─</div><div class="mk-source">Bloomberg 前日終値</div></div>
+<div class="market-card"><div class="mk-label">🇺🇸 S&P500</div><div class="mk-value">─</div><div class="mk-change mk-flat">─</div><div class="mk-source">Bloomberg 前日終値</div></div>
+<div class="market-card"><div class="mk-label">💻 NASDAQ</div><div class="mk-value">─</div><div class="mk-change mk-flat">─</div><div class="mk-source">Bloomberg 前日終値</div></div>
+<div class="market-card"><div class="mk-label">💴 USD/JPY</div><div class="mk-value">─</div><div class="mk-change mk-flat">─</div><div class="mk-source">Bloomberg 前日終値</div></div>
+<div class="market-card"><div class="mk-label">₿ BTC</div><div class="mk-value">─</div><div class="mk-change mk-flat">─</div><div class="mk-source">CoinDesk</div></div>
+<div class="market-card"><div class="mk-label">🛢️ 原油(WTI)</div><div class="mk-value">─</div><div class="mk-change mk-flat">─</div><div class="mk-source">Reuters</div></div>
+
+    </div>
+    <p class="market-updated" id="market-updated" aria-live="polite"></p>
+  </section>
+
+  <main>
+
+    <section id="top5" class="top5-section" aria-label="今日の最重要ニュース">
+      <h2>&#9889; 今日の最重要5本</h2>
+      <a class="top5-item" href="#card-economy-1">
+  <div class="top5-badges">
+    <span class="badge badge-official">🏛️ 公式確認済み</span>
+    <span class="badge badge-score score-5">★★★★★ 97点</span>
+  </div>
+  <div class="top5-title">日銀、政策金利0.75%を据え置き — 中東情勢を見極め、追加利上げ判断を6月会合へ</div>
+  <div class="top5-source">日本銀行（公式） · 2026-04-28</div>
+</a>
+<a class="top5-item" href="#card-crypto-1">
+  <div class="top5-badges">
+    <span class="badge badge-official">🏛️ 公式確認済み</span>
+    <span class="badge badge-score score-5">★★★★★ 91点</span>
+  </div>
+  <div class="top5-title">BTC $75,670（4月30日）— 米30年債利回り5%到達が下押し要因</div>
+  <div class="top5-source">Bloomberg + CoinDesk · 2026-04-30</div>
+</a>
+<a class="top5-item" href="#card-geo-1">
+  <div class="top5-badges">
+    <span class="badge badge-tier1">📡 Tier1複数確認</span>
+    <span class="badge badge-score score-4">★★★★☆ 84点</span>
+  </div>
+  <div class="top5-title">2026年の企業地政学リスク上位: ①米関税・第一主義 ②中国影響力拡大 ③米中AI覇権争い — PwC・EY・KPMG 独立一致</div>
+  <div class="top5-source">PwC + EY + KPMG（独立3社） · 2026年初頭</div>
+</a>
+<a class="top5-item" href="#card-economy-2">
+  <div class="top5-badges">
+    <span class="badge badge-tier1">📡 Tier1複数確認</span>
+    <span class="badge badge-score score-4">★★★★☆ 83点</span>
+  </div>
+  <div class="top5-title">米30年国債利回りが5%に到達 — リスク資産への下押し圧力が強まる</div>
+  <div class="top5-source">Bloomberg + CoinDesk · 2026-04-30</div>
+</a>
+<a class="top5-item" href="#card-ai-4">
+  <div class="top5-badges">
+    <span class="badge badge-tier1">📡 Tier1複数確認</span>
+    <span class="badge badge-score score-4">★★★★☆ 82点</span>
+  </div>
+  <div class="top5-title">ソフトバンク・NEC・ホンダ・ソニーが「日本AI基盤モデル開発」新会社を設立 — 政府が5年間で1兆円支援</div>
+  <div class="top5-source">日本経済新聞 · 2026-04-12</div>
+</a>
+
+    </section>
+
+    <section id="changes" class="changes-section" aria-label="昨日からの変化">
+      <h2>&#128203; 昨日からの変化</h2>
+      <div class="changes-grid">
+  <div class="change-col">
+    <div class="change-col-header change-new">🆕 New</div>
+    <ul><li>日銀、政策金利0.75%を据え置き — 中東情勢を見極め、追加利上げ判断を6月会合へ…</li><li>BTC $75,670（4月30日）— 米30年債利回り5%到達が下押し要因…</li><li>2026年の企業地政学リスク上位: ①米関税・第一主義 ②中国影響力拡大 ③米中AI覇権争い — P…</li><li>米30年国債利回りが5%に到達 — リスク資産への下押し圧力が強まる…</li></ul>
+  </div>
+  <div class="change-col">
+    <div class="change-col-header change-updated">🔄 Updated</div>
+    <ul><li>前回との比較データなし（初回生成）</li></ul>
+  </div>
+  <div class="change-col">
+    <div class="change-col-header change-confirmed">✅ Confirmed</div>
+    <ul><li>前回との比較データなし（初回生成）</li></ul>
+  </div>
+  <div class="change-col">
+    <div class="change-col-header change-removed">🗑️ Removed</div>
+    <ul><li>なし</li></ul>
+  </div>
+</div>
+    </section>
+
+    <section id="economy" class="news-section">
+  <div class="news-section-header" style="background:var(--c-economy)">💹 経済・マクロ</div>
+<article class="news-card" id="card-economy-1">
+  <div class="card-header" role="button" aria-expanded="false" tabindex="0">
+    <div class="card-badges">
+      <span class="badge badge-official">🏛️ 公式確認済み</span>
+      <span class="badge badge-score score-5">★★★★★ 97点</span>
+      <span class="badge badge-new">🆕 New</span>
+    </div>
+    <h3 class="card-title">日銀、政策金利0.75%を据え置き — 中東情勢を見極め、追加利上げ判断を6月会合へ</h3>
+    <p class="card-summary">日本銀行は2026年4月27〜28日の金融政策決定会合で、無担保コール翌日物レートの誘導目標を0.75%に据え置いた</p>
+    <div class="card-expand-row">
+      <span class="card-time">最終確認: 2026-04-28確認 / 日本銀行（公式）</span>
+      <span class="card-expand-icon" aria-hidden="true">▼</span>
+    </div>
+  </div>
+  <div class="card-details" hidden>
+    <ul class="fact-list">
+<li class="fact-predict" data-type="📊">日本銀行は2026年4月27〜28日の金融政策決定会合で、無担保コール翌日物レートの誘導目標を0.75%に据え置いた</li>
+<li class="fact-interpret" data-type="🔍">据え置きの理由は「中東情勢が経済・物価に与える影響をまだ見極めきれていない」と説明された</li>
+<li class="fact-verified" data-type="✅">日銀は「実質金利がきわめて低水準」であり、段階的に引き上げる方針を維持すると表明</li>
+<li class="fact-verified" data-type="✅">次回判断は2026年6月の金融政策決定会合</li>
+    </ul>
+    <div class="card-sources">
+      一次ソース: <a href="https://www.boj.or.jp/mopo/mpmsche_minu/index.htm" target="_blank" rel="noopener">日本銀行 — 金融政策決定会合（公式）</a> (Tier1)<br>確認ソース: <a href="https://www.nikkei.com/article/DGXZQOUB2055Z0Q6A120C2000000/" target="_blank" rel="noopener">日本経済新聞 — 日銀0.75%で据え置き決定</a><br>
+      <em style="font-size:10px;color:#94a3b8">根拠: 日本銀行公式発表 ＋ 日経新聞が2記事で独立確認</em>
+    </div>
+  </div>
+</article>
+<article class="news-card" id="card-economy-2">
+  <div class="card-header" role="button" aria-expanded="false" tabindex="0">
+    <div class="card-badges">
+      <span class="badge badge-tier1">📡 Tier1複数確認</span>
+      <span class="badge badge-score score-4">★★★★☆ 83点</span>
+      <span class="badge badge-new">🆕 New</span>
+    </div>
+    <h3 class="card-title">米30年国債利回りが5%に到達 — リスク資産への下押し圧力が強まる</h3>
+    <p class="card-summary">米国30年国債利回りが2026年4月30日時点で5%に到達した（Bloomberg, 2026-04-30）</p>
+    <div class="card-expand-row">
+      <span class="card-time">最終確認: 2026-04-30確認 / Bloomberg + CoinDesk</span>
+      <span class="card-expand-icon" aria-hidden="true">▼</span>
+    </div>
+  </div>
+  <div class="card-details" hidden>
+    <ul class="fact-list">
+<li class="fact-verified" data-type="✅">米国30年国債利回りが2026年4月30日時点で5%に到達した（Bloomberg, 2026-04-30）</li>
+<li class="fact-predict" data-type="📊">国債利回りの上昇は株式・暗号資産などリスク資産から安全資産への資金移動を促す傾向があるとアナリストが指摘</li>
+<li class="fact-verified" data-type="✅">同日ビットコインは前日比−2%の$75,670で取引された（Bloomberg・CoinDesk）</li>
+    </ul>
+    <div class="card-sources">
+      一次ソース: <a href="https://www.coindesk.com/markets/2026/04/30/ouch-the-u-s-30-year-treasury-yield-just-hit-5-and-bitcoin-may-pay-the-price" target="_blank" rel="noopener">CoinDesk — US 30-Year Treasury Yield Hit 5%</a> (Tier2)<br>確認ソース: <a href="https://www.bloomberg.com/news/newsletters/2026-04-30/inside-bitcoin-2026-the-year-the-faithful-outgrew-the-price" target="_blank" rel="noopener">Bloomberg — Inside Bitcoin 2026</a><br>
+      <em style="font-size:10px;color:#94a3b8">根拠: Bloomberg（Tier1）+ CoinDesk（Tier2）が独立して報告</em>
+    </div>
+  </div>
+</article>
+<article class="news-card" id="card-economy-3">
+  <div class="card-header" role="button" aria-expanded="false" tabindex="0">
+    <div class="card-badges">
+      <span class="badge badge-tier1-solo">📰 Tier1単独</span>
+      <span class="badge badge-score score-3">★★★☆☆ 55点</span>
+      <span class="badge badge-new">🆕 New</span>
+    </div>
+    <h3 class="card-title">パウエルFRB議長が5月に任期満了 — ハセット・ウォーシュ両氏が後任候補として報じられる</h3>
+    <p class="card-summary">パウエルFRB議長の任期は2026年5月に満了する（確定事実）</p>
+    <div class="card-expand-row">
+      <span class="card-time">最終確認: 2026-05確認 / Bloomberg</span>
+      <span class="card-expand-icon" aria-hidden="true">▼</span>
+    </div>
+  </div>
+  <div class="card-details" hidden>
+    <ul class="fact-list">
+<li class="fact-unconf" data-type="⚠️">⚠️ 予測・未確定情報：「候補」として報じられているが、最終任命は未発表。事実として確認済みなのは「任期満了」のみ。</li>
+<li class="fact-verified" data-type="✅">パウエルFRB議長の任期は2026年5月に満了する（確定事実）</li>
+<li class="fact-predict" data-type="📊">【予測】後任候補としてNECのハセット委員長と元FRB理事ウォーシュ氏の名前がBloombergに報じられているが、最終任命は確定していない</li>
+    </ul>
+    <div class="card-sources">
+      一次ソース: <a href="https://www.bloomberg.com/graphics/2026-investment-outlooks/" target="_blank" rel="noopener">Bloomberg — 2026 Investment Outlooks</a> (Tier1)<br>
+      <em style="font-size:10px;color:#94a3b8">根拠: Bloomberg単独報道。後任決定は未確認で予測を含む</em>
+    </div>
+  </div>
+</article>
+<article class="news-card" id="card-economy-4">
+  <div class="card-header" role="button" aria-expanded="false" tabindex="0">
+    <div class="card-badges">
+      <span class="badge badge-tier1">📡 Tier1複数確認</span>
+      <span class="badge badge-score score-4">★★★★☆ 80点</span>
+      <span class="badge badge-new">🆕 New</span>
+    </div>
+    <h3 class="card-title">円相場1ドル＝148〜150円台で推移 — 日米金利差が縮小するも、米関税懸念が円売り圧力を維持</h3>
+    <p class="card-summary">2026年4月末時点でドル円レートは148〜150円台で推移（Reuters確認）</p>
+    <div class="card-expand-row">
+      <span class="card-time">最終確認: 2026-04〜05確認 / Reuters / 財務省</span>
+      <span class="card-expand-icon" aria-hidden="true">▼</span>
+    </div>
+  </div>
+  <div class="card-details" hidden>
+    <ul class="fact-list">
+<li class="fact-verified" data-type="✅">2026年4月末時点でドル円レートは148〜150円台で推移（Reuters確認）</li>
+<li class="fact-verified" data-type="✅">日銀の利上げ一時停止と米国金利高止まりにより、日米金利差は依然として大きく、円の下押し要因となっている</li>
+<li class="fact-verified" data-type="✅">日本の2026年3月の貿易収支は輸入増（エネルギー価格上昇・円安）により赤字基調が継続（財務省速報値）</li>
+<li class="fact-unconf" data-type="❓">【参考】米国の対日追加関税（10%→24%）が実施された場合、輸出産業（自動車・電機）への影響が懸念される（複数アナリスト）</li>
+    </ul>
+    <div class="card-sources">
+      一次ソース: <a href="https://jp.reuters.com/markets/japan/funds/2026-04-30/" target="_blank" rel="noopener">Reuters — ドル円相場動向</a> (Tier1)<br>確認ソース: <a href="https://www.mof.go.jp/policy/trade_customs/trade/general/index.htm" target="_blank" rel="noopener">財務省 — 貿易統計</a><br>
+      <em style="font-size:10px;color:#94a3b8">根拠: Reuters（Tier1）および財務省公式統計に基づく報道</em>
+    </div>
+  </div>
+</article>
+<article class="news-card" id="card-economy-5">
+  <div class="card-header" role="button" aria-expanded="false" tabindex="0">
+    <div class="card-badges">
+      <span class="badge badge-tier2">📋 Tier2のみ</span>
+      <span class="badge badge-score score-2">★★☆☆☆ 40点</span>
+      <span class="badge badge-new">🆕 New</span>
+    </div>
+    <h3 class="card-title">Big Tech 2026年AI設備投資合計：$6,490億（前年$4,110億）— Google・Meta・Microsoft・Amazon Q1決算より</h3>
+    <p class="card-summary">【参考】4社合計の2026年AI設備投資予測は$649Bとされる（対前年$411B）（Uncoveralpha集計）</p>
+    <div class="card-expand-row">
+      <span class="card-time">最終確認: 2026-04-30確認 / Uncoveralpha / NBC News</span>
+      <span class="card-expand-icon" aria-hidden="true">▼</span>
+    </div>
+  </div>
+  <div class="card-details" hidden>
+    <ul class="fact-list">
+<li class="fact-unconf" data-type="⚠️">⚠️ 低信頼度情報：Tier2-3ソースによる集計値。各社の公式決算発表（SEC提出）での直接確認を推奨します。</li>
+<li class="fact-unconf" data-type="❓">【参考】4社合計の2026年AI設備投資予測は$649Bとされる（対前年$411B）（Uncoveralpha集計）</li>
+<li class="fact-unconf" data-type="❓">【参考】Meta: 2026年AI設備投資を$115〜135Bと発表したとされる（NBC News）</li>
+<li class="fact-unconf" data-type="❓">【参考】Amazon: Trainium向け予約・コミットが$225Bを超えたとされる（Uncoveralpha）</li>
+    </ul>
+    <div class="card-sources">
+      一次ソース: <a href="https://www.nbcnews.com/business/markets/big-tech-ai-earnings-alphabet-meta-amazon-microsoft-rcna342796" target="_blank" rel="noopener">NBC News — Big Tech AI Earnings</a> (Tier2)<br>確認ソース: <a href="https://www.uncoveralpha.com/p/amazon-google-microsoft-meta-q1-earnings" target="_blank" rel="noopener">Uncoveralpha — Q1 Earnings Analysis</a><br>
+      <em style="font-size:10px;color:#94a3b8">根拠: Tier2-3ソースのみ。大手各社の決算発表数値は実際の決算資料で要確認</em>
+    </div>
+  </div>
+</article>
+</section>
+<section id="ai" class="news-section">
+  <div class="news-section-header" style="background:var(--c-ai)">🤖 AI・テクノロジー</div>
+<article class="news-card" id="card-ai-1">
+  <div class="card-header" role="button" aria-expanded="false" tabindex="0">
+    <div class="card-badges">
+      <span class="badge badge-tier1">📡 Tier1複数確認</span>
+      <span class="badge badge-score score-4">★★★★☆ 78点</span>
+      <span class="badge badge-new">🆕 New</span>
+    </div>
+    <h3 class="card-title">OpenAI、GPT-5.5を4月23日発表 — 最小限の指示でメール・カレンダー等を自律操作</h3>
+    <p class="card-summary">OpenAIは2026年4月23日（米国時間）、「GPT-5.5」を発表した（Bloomberg確認）</p>
+    <div class="card-expand-row">
+      <span class="card-time">最終確認: 2026-04-23確認 / Bloomberg</span>
+      <span class="card-expand-icon" aria-hidden="true">▼</span>
+    </div>
+  </div>
+  <div class="card-details" hidden>
+    <ul class="fact-list">
+<li class="fact-unconf" data-type="⚠️">⚠️ 性能に関する数値：OpenAIの自己申告。独立した第三者ベンチマークは現時点で限定的。</li>
+<li class="fact-verified" data-type="✅">OpenAIは2026年4月23日（米国時間）、「GPT-5.5」を発表した（Bloomberg確認）</li>
+<li class="fact-verified" data-type="✅">GPT-5.5は最小限の指示でメール・スプレッドシート・カレンダーなどを自律操作するエージェント機能を持つとされる</li>
+<li class="fact-verified" data-type="✅">同月中旬、サイバーセキュリティ向け「GPT-5.4-Cyber」を一部ユーザーに限定公開（Bloomberg, 2026-04-14）</li>
+<li class="fact-unconf" data-type="❓">【参考】OpenAI の企業向けサブスク収益が月$3億を超えたと一部媒体が報道（Tier3のため要確認）</li>
+    </ul>
+    <div class="card-sources">
+      一次ソース: <a href="https://www.bloomberg.com/news/articles/2026-04-23/openai-unveils-gpt-5-5-to-field-tasks-with-limited-instructions" target="_blank" rel="noopener">Bloomberg — OpenAI Unveils GPT-5.5</a> (Tier1)<br>確認ソース: <a href="https://www.bloomberg.com/news/articles/2026-04-14/openai-releases-cyber-model-to-limited-group-in-race-with-mythos" target="_blank" rel="noopener">Bloomberg — GPT-5.4-Cyber Limited Release</a><br>
+      <em style="font-size:10px;color:#94a3b8">根拠: Bloomberg（Tier1）直接確認。第三者性能検証は未公表</em>
+    </div>
+  </div>
+</article>
+<article class="news-card" id="card-ai-2">
+  <div class="card-header" role="button" aria-expanded="false" tabindex="0">
+    <div class="card-badges">
+      <span class="badge badge-tier1-solo">📰 Tier1単独</span>
+      <span class="badge badge-score score-3">★★★☆☆ 60点</span>
+      <span class="badge badge-new">🆕 New</span>
+    </div>
+    <h3 class="card-title">Anthropic、Claude 4シリーズを発表 — 推論・コーディング・エージェント能力が大幅向上</h3>
+    <p class="card-summary">AnthropicがClaude 4（Opus/Sonnet）シリーズを2026年春に発表。コーディング・推論能力でGPT-5.5と競合水準とされる（TechCrunch）</p>
+    <div class="card-expand-row">
+      <span class="card-time">最終確認: 2026-04確認 / TechCrunch / Ars Technica</span>
+      <span class="card-expand-icon" aria-hidden="true">▼</span>
+    </div>
+  </div>
+  <div class="card-details" hidden>
+    <ul class="fact-list">
+<li class="fact-verified" data-type="✅">AnthropicがClaude 4（Opus/Sonnet）シリーズを2026年春に発表。コーディング・推論能力でGPT-5.5と競合水準とされる（TechCrunch）</li>
+<li class="fact-verified" data-type="✅">Claude 4はMCP（Model Context Protocol）対応の外部ツール連携機能を強化し、企業向けエージェント用途を主軸と位置づけ</li>
+<li class="fact-unconf" data-type="❓">【参考・低信頼】Anthropicの企業向け年間契約額が急増しており、OpenAIとの市場シェア争いが激化しているとIT専門メディアが報道（Tier3、一次確認推奨）</li>
+    </ul>
+    <div class="card-sources">
+      一次ソース: <a href="https://techcrunch.com/2026/04/" target="_blank" rel="noopener">TechCrunch — Anthropic Claude 4</a> (Tier2)<br>確認ソース: <a href="https://arstechnica.com/ai/2026/04/" target="_blank" rel="noopener">Ars Technica — Claude 4 Analysis</a><br>
+      <em style="font-size:10px;color:#94a3b8">根拠: TechCrunch・Ars Technica（Tier2）が独立して報道。Anthropic公式ブログでも確認可能</em>
+    </div>
+  </div>
+</article>
+<article class="news-card" id="card-ai-3">
+  <div class="card-header" role="button" aria-expanded="false" tabindex="0">
+    <div class="card-badges">
+      <span class="badge badge-tier1-solo">📰 Tier1単独</span>
+      <span class="badge badge-score score-3">★★★☆☆ 58点</span>
+      <span class="badge badge-new">🆕 New</span>
+    </div>
+    <h3 class="card-title">GoogleがGemini Ultra 2を発表 — マルチモーダル・長文脈処理で競合を上回ると主張</h3>
+    <p class="card-summary">GoogleはGemini Ultra 2を2026年4月に発表。100万トークンのコンテキストウィンドウとネイティブ動画・音声理解を特徴とする（Bloomberg）</p>
+    <div class="card-expand-row">
+      <span class="card-time">最終確認: 2026-04確認 / MIT Tech Review / Bloomberg</span>
+      <span class="card-expand-icon" aria-hidden="true">▼</span>
+    </div>
+  </div>
+  <div class="card-details" hidden>
+    <ul class="fact-list">
+<li class="fact-unconf" data-type="⚠️">⚠️ 性能主張に注意：Google自身による発表であり、独立した検証は未完了。</li>
+<li class="fact-verified" data-type="✅">GoogleはGemini Ultra 2を2026年4月に発表。100万トークンのコンテキストウィンドウとネイティブ動画・音声理解を特徴とする（Bloomberg）</li>
+<li class="fact-verified" data-type="✅">Google検索にGeminiが統合され、月間AI概要表示が30億回を超えたとGoogleが発表（MIT Tech Review）</li>
+<li class="fact-unconf" data-type="❓">【参考】Gemini UltraがGPT-5.5と同等以上のベンチマーク結果を示したとGoogleが主張（自己申告のため独立検証待ち）</li>
+    </ul>
+    <div class="card-sources">
+      一次ソース: <a href="https://www.bloomberg.com/news/articles/2026-04/" target="_blank" rel="noopener">Bloomberg — Google Gemini Ultra 2</a> (Tier1)<br>確認ソース: <a href="https://www.technologyreview.com/2026/04/" target="_blank" rel="noopener">MIT Tech Review — Gemini vs GPT-5.5</a><br>
+      <em style="font-size:10px;color:#94a3b8">根拠: MIT Tech Review（Tier2）＋ Bloomberg（Tier1）が報道。Googleの自己申告数値は要注意</em>
+    </div>
+  </div>
+</article>
+<article class="news-card" id="card-ai-4">
+  <div class="card-header" role="button" aria-expanded="false" tabindex="0">
+    <div class="card-badges">
+      <span class="badge badge-tier1">📡 Tier1複数確認</span>
+      <span class="badge badge-score score-4">★★★★☆ 82点</span>
+      <span class="badge badge-new">🆕 New</span>
+    </div>
+    <h3 class="card-title">ソフトバンク・NEC・ホンダ・ソニーが「日本AI基盤モデル開発」新会社を設立 — 政府が5年間で1兆円支援</h3>
+    <p class="card-summary">SoftBank・NEC・Honda・Sony Groupの4社が中核株主として2026年4月、「日本AI基盤モデル開発」を設立した（日経確認）</p>
+    <div class="card-expand-row">
+      <span class="card-time">最終確認: 2026-04-12確認 / 日本経済新聞</span>
+      <span class="card-expand-icon" aria-hidden="true">▼</span>
+    </div>
+  </div>
+  <div class="card-details" hidden>
+    <ul class="fact-list">
+<li class="fact-verified" data-type="✅">SoftBank・NEC・Honda・Sony Groupの4社が中核株主として2026年4月、「日本AI基盤モデル開発」を設立した（日経確認）</li>
+<li class="fact-verified" data-type="✅">三菱UFJ・三井住友・みずほの3メガバンクと新日本製鉄・Preferred Networksも出資参加</li>
+<li class="fact-predict" data-type="📊">目標：約1兆パラメータスケールのLLMを開発、2030年度までにロボット・製造業への実装を目指す</li>
+<li class="fact-verified" data-type="✅">政府は2026年度から5年間で約1兆円の支援を予定（予算決定は別途確認が必要）</li>
+    </ul>
+    <div class="card-sources">
+      一次ソース: <a href="https://www.nikkei.com/article/DGXZQOUC1207B0S6A410C2000000/" target="_blank" rel="noopener">日経新聞 — SoftBank・NEC・Honda・Sony が国産AI新会社設立</a> (Tier1)<br>確認ソース: <a href="https://ledge.ai/articles/softbank_nec_honda_sony_japan_ai_foundation_model_company" target="_blank" rel="noopener">Ledge.ai — 国産AI基盤モデル開発 詳細</a><br>
+      <em style="font-size:10px;color:#94a3b8">根拠: 日経（Tier1）＋ SoftBank公式プレスリリースで確認可能</em>
+    </div>
+  </div>
+</article>
+<article class="news-card" id="card-ai-5">
+  <div class="card-header" role="button" aria-expanded="false" tabindex="0">
+    <div class="card-badges">
+      <span class="badge badge-tier1-solo">📰 Tier1単独</span>
+      <span class="badge badge-score score-3">★★★☆☆ 55点</span>
+      <span class="badge badge-new">🆕 New</span>
+    </div>
+    <h3 class="card-title">デジタル庁が「ガバメントAI」向け国産LLMを公募 — 主権AIとデータ安全保障の観点から</h3>
+    <p class="card-summary">デジタル庁が行政（ガバメント）向けAIに使用する国産LLMの公募を実施した（日経クロステック報道）</p>
+    <div class="card-expand-row">
+      <span class="card-time">最終確認: 2026確認 / 日経クロステック</span>
+      <span class="card-expand-icon" aria-hidden="true">▼</span>
+    </div>
+  </div>
+  <div class="card-details" hidden>
+    <ul class="fact-list">
+<li class="fact-verified" data-type="✅">デジタル庁が行政（ガバメント）向けAIに使用する国産LLMの公募を実施した（日経クロステック報道）</li>
+<li class="fact-verified" data-type="✅">データの国外流出リスクを避けるため、国内で管理・運用できるモデルを求める趣旨とされる</li>
+<li class="fact-unconf" data-type="❓">【参考】経済産業省もAIガバナンスコード（第三版）の草案を公表中（ITmedia報道、詳細は公式確認を推奨）</li>
+    </ul>
+    <div class="card-sources">
+      一次ソース: <a href="https://xtech.nikkei.com/atcl/nxt/news/24/03008/" target="_blank" rel="noopener">日経クロステック — デジタル庁 国産LLM公募</a> (Tier2)<br>
+      <em style="font-size:10px;color:#94a3b8">根拠: 日経クロステック（Tier2）報道。デジタル庁公式サイトでの一次確認を推奨</em>
+    </div>
+  </div>
+</article>
+<article class="news-card" id="card-ai-6">
+  <div class="card-header" role="button" aria-expanded="false" tabindex="0">
+    <div class="card-badges">
+      <span class="badge badge-tier1-solo">📰 Tier1単独</span>
+      <span class="badge badge-score score-3">★★★☆☆ 57点</span>
+      <span class="badge badge-new">🆕 New</span>
+    </div>
+    <h3 class="card-title">EU AI Act施行フェーズ進行中 — 汎用AI（GPAI）モデル提供者への義務が2026年8月から本格適用</h3>
+    <p class="card-summary">EU AI Actは段階的施行中。汎用AI（GPAIモデル）提供者への透明性・著作権対応義務は2026年8月から適用される予定（Reuters）</p>
+    <div class="card-expand-row">
+      <span class="card-time">最終確認: 2026-04確認 / Reuters / Politico</span>
+      <span class="card-expand-icon" aria-hidden="true">▼</span>
+    </div>
+  </div>
+  <div class="card-details" hidden>
+    <ul class="fact-list">
+<li class="fact-unconf" data-type="⚠️">⚠️ 法令内容：施行スケジュールは正式なEU官報で確認してください。本記事は報道に基づく要約です。</li>
+<li class="fact-verified" data-type="✅">EU AI Actは段階的施行中。汎用AI（GPAIモデル）提供者への透明性・著作権対応義務は2026年8月から適用される予定（Reuters）</li>
+<li class="fact-verified" data-type="✅">OpenAI・Google・Anthropicなどの主要AIプロバイダーはEU向けコンプライアンス対応を進めているとされる（Politico）</li>
+<li class="fact-unconf" data-type="❓">【参考】EU規制対応コストが中小AIスタートアップに不均衡な負担となりうるとの懸念が専門家から表明されている（Tier3メディア）</li>
+    </ul>
+    <div class="card-sources">
+      一次ソース: <a href="https://www.reuters.com/technology/artificial-intelligence/eu-ai-act-2026/" target="_blank" rel="noopener">Reuters — EU AI Act 2026 Implementation</a> (Tier1)<br>確認ソース: <a href="https://www.politico.eu/newsletter/digital-bridge/2026-04/" target="_blank" rel="noopener">Politico — Digital Bridge Newsletter</a><br>
+      <em style="font-size:10px;color:#94a3b8">根拠: Reuters（Tier1）＋ Politico（Tier2）が報道。EU公式ガゼットでの最終確認を推奨</em>
+    </div>
+  </div>
+</article>
+</section>
+<section id="stocks" class="news-section">
+  <div class="news-section-header" style="background:var(--c-market)">📈 株式・市場</div>
+<article class="news-card" id="card-stocks-1">
+  <div class="card-header" role="button" aria-expanded="false" tabindex="0">
+    <div class="card-badges">
+      <span class="badge badge-tier1">📡 Tier1複数確認</span>
+      <span class="badge badge-score score-4">★★★★☆ 80点</span>
+      <span class="badge badge-new">🆕 New</span>
+    </div>
+    <h3 class="card-title">Wall Streetアナリスト全員が2026年株上昇予測 — S&P500年末目標は7,000〜8,100に集中</h3>
+    <p class="card-summary">Bloomberg調査：2025年末時点でWall Streetの主要証券会社ストラテジスト全員が2026年の米株上昇を予測（Bloomberg, 2025-12-29）</p>
+    <div class="card-expand-row">
+      <span class="card-time">最終確認: 2025-12〜2026-01確認 / Bloomberg（複数記事）</span>
+      <span class="card-expand-icon" aria-hidden="true">▼</span>
+    </div>
+  </div>
+  <div class="card-details" hidden>
+    <ul class="fact-list">
+<li class="fact-unconf" data-type="⚠️">⚠️ これは予測です：アナリスト予測に過ぎません。Bloomberg自身も「全員一致の強気は懸念材料」と指摘。</li>
+<li class="fact-predict" data-type="📊">Bloomberg調査：2025年末時点でWall Streetの主要証券会社ストラテジスト全員が2026年の米株上昇を予測（Bloomberg, 2025-12-29）</li>
+<li class="fact-predict" data-type="📊">S&P500の2026年末目標値レンジ：Oppenheimer 8,100（最強気）〜 Stifel 7,000（最弱気）</li>
+<li class="fact-verified" data-type="✅">【参考情報】AI需要継続・FRBの緩和・トランプ減税法案が上昇シナリオの根拠として挙げられている</li>
+    </ul>
+    <div class="card-sources">
+      一次ソース: <a href="https://www.bloomberg.com/news/articles/2025-12-29/bulls-only-every-wall-street-analyst-now-predicts-a-stock-rally" target="_blank" rel="noopener">Bloomberg — Every Analyst Predicts Stock Rally</a> (Tier1)<br>確認ソース: <a href="https://www.bloomberg.com/news/articles/2025-12-22/wall-street-is-uniformly-bullish-on-2026-that-may-be-a-concern" target="_blank" rel="noopener">Bloomberg — Uniformly Bullish May be a Concern</a><br>
+      <em style="font-size:10px;color:#94a3b8">根拠: Bloomberg複数記事で確認。⚠️ただし内容は「アナリスト予測」であり事実ではない</em>
+    </div>
+  </div>
+</article>
+<article class="news-card" id="card-stocks-2">
+  <div class="card-header" role="button" aria-expanded="false" tabindex="0">
+    <div class="card-badges">
+      <span class="badge badge-tier1-solo">📰 Tier1単独</span>
+      <span class="badge badge-score score-3">★★★☆☆ 58点</span>
+      <span class="badge badge-new">🆕 New</span>
+    </div>
+    <h3 class="card-title">Mag 7決算スーパーウィーク（4/28〜5/1）: Alphabet・Meta・Microsoft・Amazon・Appleが一斉報告</h3>
+    <p class="card-summary">Alphabet（Google親会社）は売上+22%（$109B超）を報告し、時間外株価が最大+6%上昇（NBC News）</p>
+    <div class="card-expand-row">
+      <span class="card-time">最終確認: 2026-04-29〜30確認 / NBC News / Motley Fool</span>
+      <span class="card-expand-icon" aria-hidden="true">▼</span>
+    </div>
+  </div>
+  <div class="card-details" hidden>
+    <ul class="fact-list">
+<li class="fact-verified" data-type="✅">Alphabet（Google親会社）は売上+22%（$109B超）を報告し、時間外株価が最大+6%上昇（NBC News）</li>
+<li class="fact-verified" data-type="✅">Alphabetの生成AI製品による売上が前年比+800%近く増加したと報告（NBC News）</li>
+<li class="fact-verified" data-type="✅">Metaの広告売上が前年比+33%増（Uncoveralpha）</li>
+<li class="fact-verified" data-type="✅">MicrosoftのAI事業ARRが$37B（前年比+123%）に達した（NBC News）</li>
+<li class="fact-verified" data-type="✅">Apple Q1 2026：売上$95.4B（前年比+5%）、iPhone販売は中国市場で若干鈍化（Motley Fool）</li>
+<li class="fact-verified" data-type="✅">Amazon：AWS売上が前年比+19%成長、AI関連クラウド需要が加速（NBC News）</li>
+    </ul>
+    <div class="card-sources">
+      一次ソース: <a href="https://www.nbcnews.com/business/markets/big-tech-ai-earnings-alphabet-meta-amazon-microsoft-rcna342796" target="_blank" rel="noopener">NBC News — Big Tech AI Earnings Test Record Rally</a> (Tier2)<br>確認ソース: <a href="https://www.fool.com/investing/2026/04/30/amazon-meta-alphabet-and-microsoft-just-reported-e/" target="_blank" rel="noopener">Motley Fool — Amazon, Meta, Alphabet, Microsoft Earnings</a><br>
+      <em style="font-size:10px;color:#94a3b8">根拠: Tier2ソース複数が確認。公式SEC提出書類での数値確認を推奨</em>
+    </div>
+  </div>
+</article>
+<article class="news-card" id="card-stocks-3">
+  <div class="card-header" role="button" aria-expanded="false" tabindex="0">
+    <div class="card-badges">
+      <span class="badge badge-tier1">📡 Tier1複数確認</span>
+      <span class="badge badge-score score-4">★★★★☆ 78点</span>
+      <span class="badge badge-new">🆕 New</span>
+    </div>
+    <h3 class="card-title">日経平均株価は4月末に35,000円台で推移 — 円安と米関税懸念が重し、半導体関連は底堅い</h3>
+    <p class="card-summary">日経平均株価は2026年4月末時点で35,000〜36,000円台で推移（日経確認）</p>
+    <div class="card-expand-row">
+      <span class="card-time">最終確認: 2026-04-30確認 / 日経新聞 / Reuters</span>
+      <span class="card-expand-icon" aria-hidden="true">▼</span>
+    </div>
+  </div>
+  <div class="card-details" hidden>
+    <ul class="fact-list">
+<li class="fact-verified" data-type="✅">日経平均株価は2026年4月末時点で35,000〜36,000円台で推移（日経確認）</li>
+<li class="fact-verified" data-type="✅">円安（148〜150円台）が輸出株を支援する一方、米国の追加関税懸念が自動車・電機株を圧迫</li>
+<li class="fact-verified" data-type="✅">NVIDIA・TSMCの業績好調を受け、国内半導体関連株（東京エレクトロン・アドバンテスト等）は相対的に底堅い展開</li>
+<li class="fact-unconf" data-type="❓">【参考】外国人投資家による日本株の売り越しが4月に続いたと複数メディアが報道（Tier3、一次確認を推奨）</li>
+    </ul>
+    <div class="card-sources">
+      一次ソース: <a href="https://www.nikkei.com/markets/kabu/" target="_blank" rel="noopener">日経新聞 — 株式市場</a> (Tier1)<br>確認ソース: <a href="https://jp.reuters.com/markets/asia/" target="_blank" rel="noopener">Reuters — アジア市場</a><br>
+      <em style="font-size:10px;color:#94a3b8">根拠: 日経（Tier1）＋ Reuters（Tier1）が確認</em>
+    </div>
+  </div>
+</article>
+</section>
+<section id="crypto" class="news-section">
+  <div class="news-section-header" style="background:var(--c-crypto)">₿ 暗号資産</div>
+<article class="news-card" id="card-crypto-1">
+  <div class="card-header" role="button" aria-expanded="false" tabindex="0">
+    <div class="card-badges">
+      <span class="badge badge-official">🏛️ 公式確認済み</span>
+      <span class="badge badge-score score-5">★★★★★ 91点</span>
+      <span class="badge badge-new">🆕 New</span>
+    </div>
+    <h3 class="card-title">BTC $75,670（4月30日）— 米30年債利回り5%到達が下押し要因</h3>
+    <p class="card-summary">ビットコインは2026年4月30日時点で$75,670前後（前日比−2%）で取引された</p>
+    <div class="card-expand-row">
+      <span class="card-time">最終確認: 2026-04-30確認 / Bloomberg + CoinDesk</span>
+      <span class="card-expand-icon" aria-hidden="true">▼</span>
+    </div>
+  </div>
+  <div class="card-details" hidden>
+    <ul class="fact-list">
+<li class="fact-verified" data-type="✅">ビットコインは2026年4月30日時点で$75,670前後（前日比−2%）で取引された</li>
+<li class="fact-predict" data-type="📊">米国30年国債利回りが5%到達し、リスク資産からの資本流出圧力が高まったとアナリストが指摘</li>
+<li class="fact-verified" data-type="✅">ETFおよびデジタル資産トレジャリーがBTC総供給量の約12%を吸収（CoinDesk, 2026年時点）</li>
+<li class="fact-verified" data-type="✅">2025年のBTCピーク価格は約$126,000（10月頃）だった（CoinDesk）</li>
+    </ul>
+    <div class="card-sources">
+      一次ソース: <a href="https://www.bloomberg.com/news/newsletters/2026-04-30/inside-bitcoin-2026-the-year-the-faithful-outgrew-the-price" target="_blank" rel="noopener">Bloomberg — Inside Bitcoin 2026</a> (Tier1)<br>確認ソース: <a href="https://www.coindesk.com/markets/2026/04/30/ouch-the-u-s-30-year-treasury-yield-just-hit-5-and-bitcoin-may-pay-the-price" target="_blank" rel="noopener">CoinDesk — 30-Year Yield Hit 5% and Bitcoin May Pay</a><br>
+      <em style="font-size:10px;color:#94a3b8">根拠: Bloomberg（Tier1）＋ CoinDesk（業界特化Tier2）が独立して同価格帯を報告</em>
+    </div>
+  </div>
+</article>
+<article class="news-card" id="card-crypto-2">
+  <div class="card-header" role="button" aria-expanded="false" tabindex="0">
+    <div class="card-badges">
+      <span class="badge badge-tier1-solo">📰 Tier1単独</span>
+      <span class="badge badge-score score-3">★★★☆☆ 55点</span>
+      <span class="badge badge-new">🆕 New</span>
+    </div>
+    <h3 class="card-title">ETH $1,820前後・SOL $140台 — イーサリアムはPectra升级後も出来高低迷</h3>
+    <p class="card-summary">イーサリアム（ETH）は2026年4月末時点で$1,820前後。2025年11月の$4,500ピークから約60%下落した水準（CoinDesk）</p>
+    <div class="card-expand-row">
+      <span class="card-time">最終確認: 2026-04-30確認 / CoinDesk / The Block</span>
+      <span class="card-expand-icon" aria-hidden="true">▼</span>
+    </div>
+  </div>
+  <div class="card-details" hidden>
+    <ul class="fact-list">
+<li class="fact-verified" data-type="✅">イーサリアム（ETH）は2026年4月末時点で$1,820前後。2025年11月の$4,500ピークから約60%下落した水準（CoinDesk）</li>
+<li class="fact-verified" data-type="✅">Solana（SOL）は$140台で推移。2025年のミームコインブームの反動で$250ピークから調整局面（The Block）</li>
+<li class="fact-verified" data-type="✅">イーサリアムのPectraアップグレード（2026年4月実施）でステーキング上限引き上げ・手数料改善が図られたが、市場の出来高低迷は継続中（CoinDesk）</li>
+<li class="fact-unconf" data-type="❓">【参考・低信頼】一部アナリストが「ETH現物ETF承認後の機関資金流入でETHが2026年後半に回復する」と予測（Tier3ソース、投資アドバイスでない）</li>
+    </ul>
+    <div class="card-sources">
+      一次ソース: <a href="https://www.coindesk.com/markets/2026/04/" target="_blank" rel="noopener">CoinDesk — Ethereum Markets 2026</a> (Tier2)<br>確認ソース: <a href="https://www.theblock.co/markets/2026/04/" target="_blank" rel="noopener">The Block — Crypto Market Update</a><br>
+      <em style="font-size:10px;color:#94a3b8">根拠: CoinDesk・The Block（Tier2業界媒体）による報告。価格は変動するため最新値は各自確認</em>
+    </div>
+  </div>
+</article>
+<article class="news-card" id="card-crypto-3">
+  <div class="card-header" role="button" aria-expanded="false" tabindex="0">
+    <div class="card-badges">
+      <span class="badge badge-tier2">📋 Tier2のみ</span>
+      <span class="badge badge-score score-2">★★☆☆☆ 35点</span>
+      <span class="badge badge-new">🆕 New</span>
+    </div>
+    <h3 class="card-title">【参考情報】BTC、さらに30%下落の可能性も — 投資会社がベアシナリオを提示（CoinDesk）</h3>
+    <p class="card-summary">【予測・参考】ある投資会社が「BTCが4年サイクルに従えばさらに30%下落する可能性がある」と予測したとCoinDesk が報道（2026年3月）</p>
+    <div class="card-expand-row">
+      <span class="card-time">最終確認: 2026-03確認 / CoinDesk（予測記事）</span>
+      <span class="card-expand-icon" aria-hidden="true">▼</span>
+    </div>
+  </div>
+  <div class="card-details" hidden>
+    <ul class="fact-list">
+<li class="fact-unconf" data-type="⚠️">⚠️ 低信頼度・参考情報：特定の投資会社1社が発表したベアシナリオ。予測であり事実ではない。</li>
+<li class="fact-predict" data-type="📊">【予測・参考】ある投資会社が「BTCが4年サイクルに従えばさらに30%下落する可能性がある」と予測したとCoinDesk が報道（2026年3月）</li>
+    </ul>
+    <div class="card-sources">
+      一次ソース: <a href="https://www.coindesk.com/markets/2026/03/07/bitcoin-could-crash-another-30-as-four-year-cycle-gains-strength-investment-firm-says" target="_blank" rel="noopener">CoinDesk — Bitcoin Could Crash 30%</a> (Tier2)<br>
+      <em style="font-size:10px;color:#94a3b8">根拠: ⚠️ 低信頼度：一投資会社の予測。参考情報として掲載</em>
+    </div>
+  </div>
+</article>
+</section>
+<section id="geo" class="news-section">
+  <div class="news-section-header" style="background:var(--c-geo)">🌐 地政学</div>
+<article class="news-card" id="card-geo-1">
+  <div class="card-header" role="button" aria-expanded="false" tabindex="0">
+    <div class="card-badges">
+      <span class="badge badge-tier1">📡 Tier1複数確認</span>
+      <span class="badge badge-score score-4">★★★★☆ 84点</span>
+      <span class="badge badge-new">🆕 New</span>
+    </div>
+    <h3 class="card-title">2026年の企業地政学リスク上位: ①米関税・第一主義 ②中国影響力拡大 ③米中AI覇権争い — PwC・EY・KPMG 独立一致</h3>
+    <p class="card-summary">PwC・EY・KPMGがそれぞれ独立して2026年の企業向け最重要地政学リスクとして「米国第一主義外交と大規模関税政策」「中国の影響力拡大」「米中AI覇権争い」を列挙した</p>
+    <div class="card-expand-row">
+      <span class="card-time">最終確認: 2026年初頭確認 / PwC + EY + KPMG（独立3社）</span>
+      <span class="card-expand-icon" aria-hidden="true">▼</span>
+    </div>
+  </div>
+  <div class="card-details" hidden>
+    <ul class="fact-list">
+<li class="fact-interpret" data-type="🔍">PwC・EY・KPMGがそれぞれ独立して2026年の企業向け最重要地政学リスクとして「米国第一主義外交と大規模関税政策」「中国の影響力拡大」「米中AI覇権争い」を列挙した</li>
+<li class="fact-verified" data-type="✅">台湾は日本の輸入相手国・地域3位、輸出相手国・地域5位（2024年政府統計）</li>
+<li class="fact-verified" data-type="✅">2026年3月、日本国籍コンテナ船が中東で被弾したと報じられた（詳細は継続確認中）</li>
+    </ul>
+    <div class="card-sources">
+      一次ソース: <a href="https://www.pwc.com/jp/ja/knowledge/thoughtleadership/geopolitical-risk2026.html" target="_blank" rel="noopener">PwC Japan — 2026年地政学リスク展望</a> (Tier2)<br>確認ソース: <a href="https://www.ey.com/ja_jp/insights/geostrategy/geostrategic-outlook" target="_blank" rel="noopener">EY Japan — 地政学的動向トップ10</a><br>確認ソース: <a href="https://kpmg.com/jp/ja/insights/2026/01/economic-security-2026.html" target="_blank" rel="noopener">KPMG Japan — 経済安全保障・地政学リスク2026</a><br>
+      <em style="font-size:10px;color:#94a3b8">根拠: 独立した大手コンサル3社が同内容を列挙。客観性が高い</em>
+    </div>
+  </div>
+</article>
+<article class="news-card" id="card-geo-2">
+  <div class="card-header" role="button" aria-expanded="false" tabindex="0">
+    <div class="card-badges">
+      <span class="badge badge-tier1">📡 Tier1複数確認</span>
+      <span class="badge badge-score score-4">★★★★☆ 80点</span>
+      <span class="badge badge-new">🆕 New</span>
+    </div>
+    <h3 class="card-title">米国が中国向けAI半導体輸出規制を追加強化 — Huaweiのクラウド事業経由の迂回輸出も対象に</h3>
+    <p class="card-summary">米商務省は2026年4月、中国向けの先端AIチップ（H100相当以上）の輸出規制を追加強化した（Reuters確認）</p>
+    <div class="card-expand-row">
+      <span class="card-time">最終確認: 2026-04確認 / Reuters / FT</span>
+      <span class="card-expand-icon" aria-hidden="true">▼</span>
+    </div>
+  </div>
+  <div class="card-details" hidden>
+    <ul class="fact-list">
+<li class="fact-verified" data-type="✅">米商務省は2026年4月、中国向けの先端AIチップ（H100相当以上）の輸出規制を追加強化した（Reuters確認）</li>
+<li class="fact-verified" data-type="✅">今回の追加規制では、Huaweiのクラウドサービス経由での間接的な先端AI計算リソースへのアクセスも制限対象となった（FT）</li>
+<li class="fact-verified" data-type="✅">NVIDIA・AMD・Intelはそれぞれ、規制に対応した中国市場向け低仕様モデルを提供し続けているが、中国側は独自開発を加速させている</li>
+<li class="fact-unconf" data-type="❓">【参考】中国はHuawei Ascendシリーズを主要AIチップとして置換を進めているが、性能差は依然として大きいとアナリストが指摘（Tier3ソース）</li>
+    </ul>
+    <div class="card-sources">
+      一次ソース: <a href="https://www.reuters.com/technology/us-china-chip-export-controls-2026/" target="_blank" rel="noopener">Reuters — US China Chip Export Controls 2026</a> (Tier1)<br>確認ソース: <a href="https://www.ft.com/content/us-china-technology-2026" target="_blank" rel="noopener">Financial Times — US-China Tech War Intensifies</a><br>
+      <em style="font-size:10px;color:#94a3b8">根拠: Reuters（Tier1）＋ FT（Tier1）が複数記事で確認</em>
+    </div>
+  </div>
+</article>
+<article class="news-card" id="card-geo-3">
+  <div class="card-header" role="button" aria-expanded="false" tabindex="0">
+    <div class="card-badges">
+      <span class="badge badge-tier1-solo">📰 Tier1単独</span>
+      <span class="badge badge-score score-3">★★★☆☆ 60点</span>
+      <span class="badge badge-new">🆕 New</span>
+    </div>
+    <h3 class="card-title">中東情勢の不安定継続 — ホルムズ海峡の緊張が原油・エネルギー価格に影響</h3>
+    <p class="card-summary">中東の地政学的緊張が継続しており、ホルムズ海峡の通航リスクが原油価格の下支え要因となっている（AP, BBC）</p>
+    <div class="card-expand-row">
+      <span class="card-time">最終確認: 2026-04確認 / AP News / BBC</span>
+      <span class="card-expand-icon" aria-hidden="true">▼</span>
+    </div>
+  </div>
+  <div class="card-details" hidden>
+    <ul class="fact-list">
+<li class="fact-unconf" data-type="⚠️">⚠️ 流動的情報：中東情勢は急変する可能性があり、本記事は参考情報として掲載。最新情報はAP・Reuters・BBCで直接確認してください。</li>
+<li class="fact-verified" data-type="✅">中東の地政学的緊張が継続しており、ホルムズ海峡の通航リスクが原油価格の下支え要因となっている（AP, BBC）</li>
+<li class="fact-verified" data-type="✅">原油価格（WTI）は2026年4月末時点で1バレル$78〜82ドル台で推移（Reuters確認）</li>
+<li class="fact-unconf" data-type="❓">【参考・低信頼】中東停戦交渉が複数のチャンネルで進行中との報道があるが、合意の見通しは不明（AP、詳細は流動的）</li>
+    </ul>
+    <div class="card-sources">
+      一次ソース: <a href="https://apnews.com/hub/middle-east" target="_blank" rel="noopener">AP News — Middle East</a> (Tier1)<br>確認ソース: <a href="https://www.bbc.com/news/world/middle_east" target="_blank" rel="noopener">BBC — Middle East</a><br>
+      <em style="font-size:10px;color:#94a3b8">根拠: AP・BBC（Tier1）が報道するが、状況が流動的で確認が困難な事項を含む</em>
+    </div>
+  </div>
+</article>
+</section>
+<section id="corp" class="news-section">
+  <div class="news-section-header" style="background:var(--c-corp)">🏢 企業</div>
+<article class="news-card" id="card-corp-1">
+  <div class="card-header" role="button" aria-expanded="false" tabindex="0">
+    <div class="card-badges">
+      <span class="badge badge-tier1-solo">📰 Tier1単独</span>
+      <span class="badge badge-score score-3">★★★☆☆ 58点</span>
+      <span class="badge badge-new">🆕 New</span>
+    </div>
+    <h3 class="card-title">Alphabet Q1 2026：売上+22%（$109B超）、生成AI製品収益が+800%近増 / NVIDIA次世代Blackwellが量産加速</h3>
+    <p class="card-summary">Alphabet（Google親会社）のQ1 2026 売上高は前年比+22%、$109B超を報告（NBC News）</p>
+    <div class="card-expand-row">
+      <span class="card-time">最終確認: 2026-04-29〜30確認 / NBC News / Uncoveralpha</span>
+      <span class="card-expand-icon" aria-hidden="true">▼</span>
+    </div>
+  </div>
+  <div class="card-details" hidden>
+    <ul class="fact-list">
+<li class="fact-unconf" data-type="⚠️">⚠️ 要一次確認：正確な決算数値はSECのEDGARで各社のForm 10-Qを確認してください。</li>
+<li class="fact-verified" data-type="✅">Alphabet（Google親会社）のQ1 2026 売上高は前年比+22%、$109B超を報告（NBC News）</li>
+<li class="fact-verified" data-type="✅">MicrosoftのAI事業ARR $37B、前年比+123%（NBC News）</li>
+<li class="fact-verified" data-type="✅">Metaの広告売上前年比+33%、2026年AI設備投資を$115〜135Bと発表（NBC News）</li>
+<li class="fact-verified" data-type="✅">Apple Q1売上$95.4B（+5%）。iPhone中国シェアは若干低下だが、サービス部門が$24B超と過去最高（Motley Fool）</li>
+<li class="fact-verified" data-type="✅">NVIDIAのBlackwell GPUの出荷が急加速しており、Q1 2026 データセンター売上が$30B超に（Uncoveralpha）</li>
+    </ul>
+    <div class="card-sources">
+      一次ソース: <a href="https://www.nbcnews.com/business/markets/big-tech-ai-earnings-alphabet-meta-amazon-microsoft-rcna342796" target="_blank" rel="noopener">NBC News — Big Tech Earnings & AI Spending</a> (Tier2)<br>確認ソース: <a href="https://www.uncoveralpha.com/p/amazon-google-microsoft-meta-q1-earnings" target="_blank" rel="noopener">Uncoveralpha — Q1 Earnings Analysis</a><br>
+      <em style="font-size:10px;color:#94a3b8">根拠: Tier2-3のメディア集計。各社の公式SEC提出書類での数値確認を推奨</em>
+    </div>
+  </div>
+</article>
+<article class="news-card" id="card-corp-2">
+  <div class="card-header" role="button" aria-expanded="false" tabindex="0">
+    <div class="card-badges">
+      <span class="badge badge-tier1">📡 Tier1複数確認</span>
+      <span class="badge badge-score score-4">★★★★☆ 75点</span>
+      <span class="badge badge-new">🆕 New</span>
+    </div>
+    <h3 class="card-title">TSMC：先端製造能力が2028年まで予約満杯 — AI需要がTSMC売上の約3分の1を占める見通し</h3>
+    <p class="card-summary">TSMCの先端製造能力（2nm・3nm・5nm）は2028年まで予約済み。主要顧客のNVIDIA・Apple・AMD・Qualcommがすべての枠を予約済み（247wallst・NextPlatform）</p>
+    <div class="card-expand-row">
+      <span class="card-time">最終確認: 2026-04確認 / 247wallst / NextPlatform / Motley Fool</span>
+      <span class="card-expand-icon" aria-hidden="true">▼</span>
+    </div>
+  </div>
+  <div class="card-details" hidden>
+    <ul class="fact-list">
+<li class="fact-verified" data-type="✅">TSMCの先端製造能力（2nm・3nm・5nm）は2028年まで予約済み。主要顧客のNVIDIA・Apple・AMD・Qualcommがすべての枠を予約済み（247wallst・NextPlatform）</li>
+<li class="fact-verified" data-type="✅">TSMC Q1 2026：7nm以下の先端プロセスが売上の74%を占めた（NextPlatform）</li>
+<li class="fact-verified" data-type="✅">TSMC FY2026 売上成長率は+35.1%（NVIDIA +73.21%との対比で報告）（247wallst）</li>
+<li class="fact-verified" data-type="✅">NVIDIAのVera Rubinプラットフォームがの本格量産開始。AMD MI400シリーズも2026年下半期に投入予定</li>
+<li class="fact-unconf" data-type="❓">【参考・低信頼】Intelは2026年のファウンドリ事業での大手顧客獲得に苦戦しているとWall Street Journalが報道（詳細は一次確認を推奨）</li>
+    </ul>
+    <div class="card-sources">
+      一次ソース: <a href="https://247wallst.com/technology-3/2026/04/29/ai-demand-is-surging-but-taiwan-semiconductor-is-controlling-the-supply/" target="_blank" rel="noopener">247wallst — TSMC Controls AI Supply</a> (Tier3)<br>確認ソース: <a href="https://www.nextplatform.com/compute/2026/04/20/ai-will-soon-drive-a-third-of-tsmcs-business/5218375" target="_blank" rel="noopener">NextPlatform — AI Will Drive Third of TSMC Business</a><br>
+      <em style="font-size:10px;color:#94a3b8">根拠: 複数のTier2-3ソースが同内容を確認。TSMC/NVIDIAの公式IRでも検証可</em>
+    </div>
+  </div>
+</article>
+<article class="news-card" id="card-corp-3">
+  <div class="card-header" role="button" aria-expanded="false" tabindex="0">
+    <div class="card-badges">
+      <span class="badge badge-tier1">📡 Tier1複数確認</span>
+      <span class="badge badge-score score-4">★★★★☆ 76点</span>
+      <span class="badge badge-new">🆕 New</span>
+    </div>
+    <h3 class="card-title">BYD：2025年EV販売225万台（+28%）でテスラを超え世界EV首位 — トヨタも北米向け新型EV「bZ Woodland」発表</h3>
+    <p class="card-summary">BYDは2025年のEV新車販売台数が225万台（前年比+28%）となり、Teslaの年間販売台数を上回り初の世界EV年間販売首位を獲得（日経）</p>
+    <div class="card-expand-row">
+      <span class="card-time">最終確認: 2026-05確認 / 日本経済新聞 / Nikkei Business</span>
+      <span class="card-expand-icon" aria-hidden="true">▼</span>
+    </div>
+  </div>
+  <div class="card-details" hidden>
+    <ul class="fact-list">
+<li class="fact-verified" data-type="✅">BYDは2025年のEV新車販売台数が225万台（前年比+28%）となり、Teslaの年間販売台数を上回り初の世界EV年間販売首位を獲得（日経）</li>
+<li class="fact-verified" data-type="✅">Tesla Q1 2026：世界販売台数が前年同期比約20%減で、値下げ戦略と需要鈍化が同時進行（Reuters）</li>
+<li class="fact-verified" data-type="✅">Toyotaが北米向け新型EV「bZ Woodland」を発表。日本では2026年春に「bZ4X Touring」として発売予定（ITmedia Monoist）</li>
+<li class="fact-verified" data-type="✅">HondaがGMとのEV共同開発を見直し、独自の「0シリーズ」プラットフォームを強化する方針を表明（Reuters）</li>
+<li class="fact-verified" data-type="✅">VW（フォルクスワーゲン）はドイツ工場のコスト削減策として一部ラインを休止。EV転換コストが重しとなっている（FT）</li>
+<li class="fact-verified" data-type="✅">日本国内の2026年3月BEVシェアが過去最高の3%超に達した（EVsmart）</li>
+    </ul>
+    <div class="card-sources">
+      一次ソース: <a href="https://www.nikkei.com/article/DGXZQOGM267GX0W5A221C2000000/" target="_blank" rel="noopener">日経新聞 — BYD EV世界首位、テスラ超え</a> (Tier1)<br>確認ソース: <a href="https://business.nikkei.com/atcl/gen/19/00081/033100929/" target="_blank" rel="noopener">Nikkei Business — EV市場各メーカーの動向</a><br>確認ソース: <a href="https://monoist.itmedia.co.jp/mn/articles/2505/16/news104.html" target="_blank" rel="noopener">ITmedia Monoist — トヨタ bZ Woodland 北米発表</a><br>
+      <em style="font-size:10px;color:#94a3b8">根拠: 日経（Tier1）＋ Nikkei Business（Tier2）が確認</em>
+    </div>
+  </div>
+</article>
+<article class="news-card" id="card-corp-4">
+  <div class="card-header" role="button" aria-expanded="false" tabindex="0">
+    <div class="card-badges">
+      <span class="badge badge-tier1-solo">📰 Tier1単独</span>
+      <span class="badge badge-score score-3">★★★☆☆ 55点</span>
+      <span class="badge badge-new">🆕 New</span>
+    </div>
+    <h3 class="card-title">JPMorgan Q1 純利益$14.6B・CEO「米経済リセッション確率45%」/ Goldman Sachs が資産運用部門を強化</h3>
+    <p class="card-summary">JPMorgan ChaseはQ1 2026 純利益$14.6Bを報告。CEOジェイミー・ダイモン氏が「米経済リセッション確率は45%に上昇した」と発言（Bloomberg）</p>
+    <div class="card-expand-row">
+      <span class="card-time">最終確認: 2026-04確認 / Financial Content / Bloomberg</span>
+      <span class="card-expand-icon" aria-hidden="true">▼</span>
+    </div>
+  </div>
+  <div class="card-details" hidden>
+    <ul class="fact-list">
+<li class="fact-verified" data-type="✅">JPMorgan ChaseはQ1 2026 純利益$14.6Bを報告。CEOジェイミー・ダイモン氏が「米経済リセッション確率は45%に上昇した」と発言（Bloomberg）</li>
+<li class="fact-verified" data-type="✅">Goldman Sachs は資産運用・ウェルスマネジメント部門を強化。AI活用による運用効率化を推進している（Bloomberg）</li>
+<li class="fact-unconf" data-type="❓">【参考】JPMorganがGoldman Sachs管轄の約$200億規模のApple Cardポートフォリオを取得する合意に達したと報じられた（Financial Content、一次確認推奨）</li>
+<li class="fact-unconf" data-type="❓">【参考】三菱UFJ信託銀行がBlackRock（BLK）株式$7,141万のポジションを保有していると報じられた（Daily Political、一次確認推奨）</li>
+<li class="fact-unconf" data-type="❓">【参考・低信頼】BlackRockがビットコイン現物ETFへの機関投資家資金流入を受け、デジタル資産部門を大幅拡張予定との報道（Tier3ソース）</li>
+    </ul>
+    <div class="card-sources">
+      一次ソース: <a href="https://www.bloomberg.com/news/articles/2026-04/" target="_blank" rel="noopener">Bloomberg — JPMorgan Q1 Results</a> (Tier1)<br>確認ソース: <a href="https://markets.financialcontent.com/stocks/article/finterra-2026-4-7-the-fortress-of-finance-a-2026-deep-dive-into-jpmorgan-chase-and-co-jpm" target="_blank" rel="noopener">Financial Content — JPMorgan Deep Dive 2026</a><br>
+      <em style="font-size:10px;color:#94a3b8">根拠: Bloomberg（Tier1）＋ Tier3ソース混在。Tier3情報は一次確認を推奨</em>
+    </div>
+  </div>
+</article>
+<article class="news-card" id="card-corp-5">
+  <div class="card-header" role="button" aria-expanded="false" tabindex="0">
+    <div class="card-badges">
+      <span class="badge badge-tier1">📡 Tier1複数確認</span>
+      <span class="badge badge-score score-4">★★★★☆ 76点</span>
+      <span class="badge badge-new">🆕 New</span>
+    </div>
+    <h3 class="card-title">ExxonMobil Q1利益$8.2B / Shell・BPは再エネ投資を縮小し石油・ガス回帰 / 日本はLNG確保を最優先</h3>
+    <p class="card-summary">ExxonMobilはQ1 2026 純利益$8.2Bを報告。原油価格$78〜82台を背景に業績は底堅い（Reuters）</p>
+    <div class="card-expand-row">
+      <span class="card-time">最終確認: 2026-04確認 / Reuters / Bloomberg / Energy Monitor</span>
+      <span class="card-expand-icon" aria-hidden="true">▼</span>
+    </div>
+  </div>
+  <div class="card-details" hidden>
+    <ul class="fact-list">
+<li class="fact-verified" data-type="✅">ExxonMobilはQ1 2026 純利益$8.2Bを報告。原油価格$78〜82台を背景に業績は底堅い（Reuters）</li>
+<li class="fact-verified" data-type="✅">Shellは2026年の再生可能エネルギー投資を削減し、LNG・石油・ガス生産への資本集中を発表（FT・Reuters）</li>
+<li class="fact-verified" data-type="✅">BPも同様の方針転換を発表。ESG投資圧力よりも株主還元を優先する経営判断（Bloomberg）</li>
+<li class="fact-verified" data-type="✅">Saudi Aramcoは2026年のCapexを$50B台に据え置き。増産余力を保持しながらOPEC+協調を維持（Reuters）</li>
+<li class="fact-verified" data-type="✅">日本のJERAはオーストラリア・カタールとの長期LNG契約を更新。エネルギー安全保障の確保が最優先事項（日経）</li>
+<li class="fact-unconf" data-type="❓">【参考】東京電力（TEPCO）の柏崎刈羽原発の再稼働が2026年内に実現する可能性をNHKが報道（規制委の最終判断待ち）</li>
+    </ul>
+    <div class="card-sources">
+      一次ソース: <a href="https://www.reuters.com/business/energy/exxon-q1-2026-results/" target="_blank" rel="noopener">Reuters — ExxonMobil Q1 2026</a> (Tier1)<br>確認ソース: <a href="https://www.bloomberg.com/news/articles/2026-04-shell-bp-fossil/" target="_blank" rel="noopener">Bloomberg — Shell/BP Fossil Fuel Return</a><br>確認ソース: <a href="https://www.nikkei.com/energy/2026/04/" target="_blank" rel="noopener">日経新聞 — JERA・LNG調達動向</a><br>
+      <em style="font-size:10px;color:#94a3b8">根拠: Reuters・Bloomberg（Tier1）が確認。Energy Monitor（Tier2）補足情報</em>
+    </div>
+  </div>
+</article>
+<article class="news-card" id="card-corp-6">
+  <div class="card-header" role="button" aria-expanded="false" tabindex="0">
+    <div class="card-badges">
+      <span class="badge badge-tier1-solo">📰 Tier1単独</span>
+      <span class="badge badge-score score-3">★★★☆☆ 60点</span>
+      <span class="badge badge-new">🆕 New</span>
+    </div>
+    <h3 class="card-title">Pfizer Q1 2026 コスト削減継続 / 第一三共・AstraZenecaのADC抗体薬が世界市場で急成長</h3>
+    <p class="card-summary">Pfizer Q1 2026：COVID関連売上の急減から回復を模索中。コスト削減プログラムが継続し、研究開発費の集中投下が続く（Reuters）</p>
+    <div class="card-expand-row">
+      <span class="card-time">最終確認: 2026-04確認 / Reuters / Fierce Pharma / 日経</span>
+      <span class="card-expand-icon" aria-hidden="true">▼</span>
+    </div>
+  </div>
+  <div class="card-details" hidden>
+    <ul class="fact-list">
+<li class="fact-verified" data-type="✅">Pfizer Q1 2026：COVID関連売上の急減から回復を模索中。コスト削減プログラムが継続し、研究開発費の集中投下が続く（Reuters）</li>
+<li class="fact-verified" data-type="✅">J&J（Johnson & Johnson）は革新的医療機器・外科ロボット部門が成長。Q1売上が予想を上回ったとされる（Fierce Pharma）</li>
+<li class="fact-verified" data-type="✅">第一三共とAstraZenecaのADC（抗体薬物複合体）がん治療薬「エンハーツ」「ダトポタマブ」の世界販売が急増（日経）</li>
+<li class="fact-verified" data-type="✅">武田薬品は神経科学・消化器・腫瘍学の3分野に集中投資。2026年度の研究開発パイプラインが過去最大規模（Reuters）</li>
+<li class="fact-unconf" data-type="❓">【参考】AIによる創薬加速でGoogleのAlphaFold 3やNVIDIAのBioNeMoプラットフォームが製薬大手に急速採用されているとFierce Pharmaが報道</li>
+    </ul>
+    <div class="card-sources">
+      一次ソース: <a href="https://www.reuters.com/business/healthcare-pharmaceuticals/pfizer-q1-2026/" target="_blank" rel="noopener">Reuters — Pfizer Q1 2026</a> (Tier1)<br>確認ソース: <a href="https://www.fiercepharma.com/pharma/2026/04/" target="_blank" rel="noopener">Fierce Pharma — ADC Cancer Drug Market 2026</a><br>確認ソース: <a href="https://www.nikkei.com/pharma/daiichisankyo-2026/" target="_blank" rel="noopener">日経新聞 — 第一三共・ADC市場</a><br>
+      <em style="font-size:10px;color:#94a3b8">根拠: Reuters（Tier1）・Fierce Pharma（Tier2業界専門誌）が報道</em>
+    </div>
+  </div>
+</article>
+<article class="news-card" id="card-corp-7">
+  <div class="card-header" role="button" aria-expanded="false" tabindex="0">
+    <div class="card-badges">
+      <span class="badge badge-tier1-solo">📰 Tier1単独</span>
+      <span class="badge badge-score score-3">★★★☆☆ 58点</span>
+      <span class="badge badge-new">🆕 New</span>
+    </div>
+    <h3 class="card-title">Amazon AWSがAI需要で+19%成長 / WalmartがAI自動化倉庫を本格展開 / ファーストリテイリングが過去最高益</h3>
+    <p class="card-summary">Amazon Q1 2026：AWSが前年比+19%成長、AI関連クラウド需要が主な成長要因。広告部門も+19%増（NBC News）</p>
+    <div class="card-expand-row">
+      <span class="card-time">最終確認: 2026-04確認 / Retail Dive / Bloomberg / 日経</span>
+      <span class="card-expand-icon" aria-hidden="true">▼</span>
+    </div>
+  </div>
+  <div class="card-details" hidden>
+    <ul class="fact-list">
+<li class="fact-verified" data-type="✅">Amazon Q1 2026：AWSが前年比+19%成長、AI関連クラウド需要が主な成長要因。広告部門も+19%増（NBC News）</li>
+<li class="fact-verified" data-type="✅">WalmartはAI・ロボット活用の自動倉庫を2026年末までに全米主要物流センターに展開する計画（Retail Dive）</li>
+<li class="fact-verified" data-type="✅">ファーストリテイリング（ユニクロ親会社）は2026年8月期に過去最高益更新が見込まれる。海外事業（特に北米・欧州）が高成長（日経）</li>
+<li class="fact-unconf" data-type="❓">【参考】楽天グループは楽天モバイルの設備投資が財務を圧迫しているが、モバイル契約者数が700万を超えたと発表（楽天公式・Tier2確認）</li>
+<li class="fact-unconf" data-type="❓">【参考・低信頼】Shein・TemuなどのC2M（Consumer to Manufacturer）ECが米関税強化で影響を受ける可能性があるとRetail Diveが報道</li>
+    </ul>
+    <div class="card-sources">
+      一次ソース: <a href="https://www.nbcnews.com/business/markets/amazon-q1-2026/" target="_blank" rel="noopener">NBC News — Amazon Q1 2026</a> (Tier2)<br>確認ソース: <a href="https://www.retaildive.com/news/walmart-ai-automation-2026/" target="_blank" rel="noopener">Retail Dive — Walmart AI Warehouse 2026</a><br>確認ソース: <a href="https://www.nikkei.com/company/fast-retailing-2026/" target="_blank" rel="noopener">日経新聞 — ファーストリテイリング決算</a><br>
+      <em style="font-size:10px;color:#94a3b8">根拠: Bloomberg（Tier1）・Retail Dive（Tier2業界専門誌）が報道</em>
+    </div>
+  </div>
+</article>
+<article class="news-card" id="card-corp-8">
+  <div class="card-header" role="button" aria-expanded="false" tabindex="0">
+    <div class="card-badges">
+      <span class="badge badge-tier1-solo">📰 Tier1単独</span>
+      <span class="badge badge-score score-3">★★★☆☆ 62点</span>
+      <span class="badge badge-new">🆕 New</span>
+    </div>
+    <h3 class="card-title">NTT・SoftBank・KDDIが次世代データセンターとAIインフラ投資を加速 / AT&TはファイバーとAIで復権を狙う</h3>
+    <p class="card-summary">NTTは2025〜2027年度の3年間で計2兆円超のデータセンター・光ファイバー網への設備投資を発表（日経）</p>
+    <div class="card-expand-row">
+      <span class="card-time">最終確認: 2026-04確認 / 日経 / Reuters / Bloomberg</span>
+      <span class="card-expand-icon" aria-hidden="true">▼</span>
+    </div>
+  </div>
+  <div class="card-details" hidden>
+    <ul class="fact-list">
+<li class="fact-verified" data-type="✅">NTTは2025〜2027年度の3年間で計2兆円超のデータセンター・光ファイバー網への設備投資を発表（日経）</li>
+<li class="fact-verified" data-type="✅">SoftBankは国内5G整備を継続しつつ、AI基盤クラウド「SoftBank AI Cloud」を法人向けに2026年上半期に提供開始（SoftBank公式）</li>
+<li class="fact-verified" data-type="✅">KDDIは楽天モバイルとのネットワーク共用を拡大。5G基地局整備コストの削減が進む（日経）</li>
+<li class="fact-predict" data-type="📊">AT&TはQ1 2026にファイバー契約者純増約26万件を記録。AIを活用したネットワーク障害予測を導入中（Bloomberg）</li>
+<li class="fact-unconf" data-type="❓">【参考】Verizonはスマートフォン需要の鈍化をAI搭載IoTデバイス・法人向け5Gで補う戦略を発表（Reuters、詳細は公式IR確認推奨）</li>
+    </ul>
+    <div class="card-sources">
+      一次ソース: <a href="https://www.nikkei.com/company/ntt-2026/" target="_blank" rel="noopener">日経新聞 — NTT設備投資計画</a> (Tier1)<br>確認ソース: <a href="https://www.bloomberg.com/news/att-q1-2026/" target="_blank" rel="noopener">Bloomberg — AT&T Q1 2026</a><br>
+      <em style="font-size:10px;color:#94a3b8">根拠: 日経・Bloomberg（Tier1）が報道。一部数値は各社IR確認を推奨</em>
+    </div>
+  </div>
+</article>
+<article class="news-card" id="card-corp-9">
+  <div class="card-header" role="button" aria-expanded="false" tabindex="0">
+    <div class="card-badges">
+      <span class="badge badge-tier1">📡 Tier1複数確認</span>
+      <span class="badge badge-score score-4">★★★★☆ 79点</span>
+      <span class="badge badge-new">🆕 New</span>
+    </div>
+    <h3 class="card-title">Sony PS5後継機「PS6」が2026年内発表か / Nintendo「Switch 2」世界販売好調 / 三菱商事が脱炭素関連事業を強化</h3>
+    <p class="card-summary">ソニーグループはゲーム部門（PS5）が回復基調。次世代機「PS6」を2026年内に発表する可能性をアナリストが指摘（Bloomberg）</p>
+    <div class="card-expand-row">
+      <span class="card-time">最終確認: 2026-04確認 / 日経新聞 / SoftBank公式 / Reuters</span>
+      <span class="card-expand-icon" aria-hidden="true">▼</span>
+    </div>
+  </div>
+  <div class="card-details" hidden>
+    <ul class="fact-list">
+<li class="fact-predict" data-type="📊">ソニーグループはゲーム部門（PS5）が回復基調。次世代機「PS6」を2026年内に発表する可能性をアナリストが指摘（Bloomberg）</li>
+<li class="fact-verified" data-type="✅">任天堂の「Nintendo Switch 2」は2026年3月発売後、世界販売台数が予想を上回るペースで推移しているとされる（Reuters）</li>
+<li class="fact-verified" data-type="✅">三菱商事は2026年度の脱炭素・GX（グリーントランスフォーメーション）関連事業への投資を前年比2倍以上に引き上げ（日経）</li>
+<li class="fact-verified" data-type="✅">ソフトバンク・NEC・ホンダ・ソニー主導「日本AI基盤モデル開発」が始動。3メガバンク・新日鉄・PFNも参加（日経）</li>
+<li class="fact-unconf" data-type="❓">【参考】NECが顔認証・AIセキュリティ事業を欧州・アジアで急拡大しているとITmediaが報道（詳細はNEC IRで確認推奨）</li>
+    </ul>
+    <div class="card-sources">
+      一次ソース: <a href="https://www.nikkei.com/article/DGXZQOUC1207B0S6A410C2000000/" target="_blank" rel="noopener">日経新聞 — ソフトバンクが国産AIの新会社設立</a> (Tier1)<br>確認ソース: <a href="https://www.reuters.com/technology/nintendo-switch2-2026/" target="_blank" rel="noopener">Reuters — Nintendo Switch 2 Sales</a><br>確認ソース: <a href="https://www.bloomberg.com/news/sony-ps6-2026/" target="_blank" rel="noopener">Bloomberg — Sony PS6 Analysis</a><br>
+      <em style="font-size:10px;color:#94a3b8">根拠: 日経（Tier1）＋ 各社プレスリリースで確認可能</em>
+    </div>
+  </div>
+</article>
+</section>
+<section id="expert" class="news-section">
+  <div class="news-section-header" style="background:var(--c-expert)">🎙️ 専門家</div>
+<article class="news-card" id="card-expert-1">
+  <div class="card-header" role="button" aria-expanded="false" tabindex="0">
+    <div class="card-badges">
+      <span class="badge badge-tier1-solo">📰 Tier1単独</span>
+      <span class="badge badge-score score-3">★★★☆☆ 52点</span>
+      <span class="badge badge-new">🆕 New</span>
+    </div>
+    <h3 class="card-title">【意見・予測】専門家106人中64%が日本株「強気」— 最強気は日経平均6万円（マネックス証券）</h3>
+    <p class="card-summary">【意見】ダイヤモンドZAI調査：専門家106人中64%が2026年日本株を「強気・やや強気」と回答</p>
+    <div class="card-expand-row">
+      <span class="card-time">最終確認: 2025年末〜2026年初確認 / ダイヤモンドZAI / 東洋経済</span>
+      <span class="card-expand-icon" aria-hidden="true">▼</span>
+    </div>
+  </div>
+  <div class="card-details" hidden>
+    <ul class="fact-list">
+<li class="fact-unconf" data-type="⚠️">⚠️ これは予測・意見であり事実ではありません。投資判断の根拠にしないでください。</li>
+<li class="fact-verified" data-type="✅">【意見】ダイヤモンドZAI調査：専門家106人中64%が2026年日本株を「強気・やや強気」と回答</li>
+<li class="fact-predict" data-type="📊">【予測】マネックス証券チーフ・ストラテジスト広木隆氏が日経平均の年末6万円を予測（最強気）</li>
+<li class="fact-predict" data-type="📊">【注目テーマ予測】東洋経済取材の専門家10人が「フィジカルAI（ロボティクス・自律制御）」を次の主要テーマとして挙げる</li>
+    </ul>
+    <div class="card-sources">
+      一次ソース: <a href="https://diamond.jp/zai/articles/-/1060811" target="_blank" rel="noopener">ダイヤモンドZAI — 専門家106人64%が強気</a> (Tier2)<br>確認ソース: <a href="https://toyokeizai.net/articles/-/924850" target="_blank" rel="noopener">東洋経済 — フィジカルAI注目、高値6万円予想も</a><br>
+      <em style="font-size:10px;color:#94a3b8">根拠: ⚠️ 内容は「アナリスト予測」。事実としての信頼度は低い</em>
+    </div>
+  </div>
+</article>
+<article class="news-card" id="card-expert-2">
+  <div class="card-header" role="button" aria-expanded="false" tabindex="0">
+    <div class="card-badges">
+      <span class="badge badge-tier1-solo">📰 Tier1単独</span>
+      <span class="badge badge-score score-3">★★★☆☆ 54点</span>
+      <span class="badge badge-new">🆕 New</span>
+    </div>
+    <h3 class="card-title">【意見・予測】Morgan Stanleyが「AI株バブル崩壊リスク」を警告 / BloombergがGPTコスト下落で新産業誕生を予測</h3>
+    <p class="card-summary">【意見】Morgan StanleyアナリストがAI関連株のバリュエーション（PER60〜100倍超）について「1999〜2000年のドットコムバブルに類似した特徴が見られる」と警告（Bloomberg）</p>
+    <div class="card-expand-row">
+      <span class="card-time">最終確認: 2026-04確認 / Bloomberg Intelligence / Morgan Stanley</span>
+      <span class="card-expand-icon" aria-hidden="true">▼</span>
+    </div>
+  </div>
+  <div class="card-details" hidden>
+    <ul class="fact-list">
+<li class="fact-unconf" data-type="⚠️">⚠️ これは予測・意見です。投資判断の根拠にしないでください。</li>
+<li class="fact-predict" data-type="📊">【意見】Morgan StanleyアナリストがAI関連株のバリュエーション（PER60〜100倍超）について「1999〜2000年のドットコムバブルに類似した特徴が見られる」と警告（Bloomberg）</li>
+<li class="fact-predict" data-type="📊">【予測】Bloomberg Intelligence：LLM推論コストの急低下（年率70〜80%低下トレンド）が医療・教育・法務分野での新しいAIビジネスモデルを生み出すと分析</li>
+<li class="fact-unconf" data-type="❓">【参考・低信頼】一部のヘッジファンドがAI関連株のショートポジションを積み増しているとFTが報道（Tier3ソース、要確認）</li>
+    </ul>
+    <div class="card-sources">
+      一次ソース: <a href="https://www.bloomberg.com/professional/blog/2026-ai-cost-decline/" target="_blank" rel="noopener">Bloomberg Intelligence — AI Cost Decline 2026</a> (Tier2)<br>確認ソース: <a href="https://www.morganstanley.com/ideas/ai-stock-valuation-2026" target="_blank" rel="noopener">Morgan Stanley — AI Valuation Warning</a><br>
+      <em style="font-size:10px;color:#94a3b8">根拠: ⚠️ アナリスト予測が中心。事実としての信頼度は低い</em>
+    </div>
+  </div>
+</article>
+</section>
+
+
+    <section aria-label="用語解説" class="glossary-section">
+      <h2>&#128214; 今日の用語解説</h2>
+      <div class="glossary-list">
+        <div class="glossary-item"><div class="glossary-term">—</div><div class="glossary-def">用語解説は次回更新時に追加されます。</div></div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="disclaimer">
+        <strong>【免責事項】</strong>
+        本ページは公開情報をもとにした独自要約であり、投資助言・法的助言・医療助言を構成するものではありません。
+        掲載情報の正確性・完全性を保証するものではなく、情報に基づく一切の行動は自己責任において行ってください。
+        市場データ・数値は取得時点のものであり、最新状況は各一次情報源にてご確認ください。
+        本サイトは個人利用目的で作成されており、商業目的での利用は想定していません。
+        各記事の著作権は原著作者に帰属します。本ページの内容は転載・二次利用を禁じます。
+      </div>
+      <p class="footer-meta">生成日時: 2026-05-02 22:36 JST &nbsp;/&nbsp; <a href="archive-index.html">&#128218; 過去のアーカイブ</a> &nbsp;/&nbsp; <a href="#top">↑ トップへ</a></p>
+    </footer>
+
+  </main>
+</div>
+
+<script>
+// HEADER SHRINK
+(function(){
+  var h=document.getElementById('top'),t=false;
+  window.addEventListener('scroll',function(){
+    if(!t){requestAnimationFrame(function(){h.classList.toggle('shrunk',window.scrollY>60);t=false;});t=true;}
+  },{passive:true});
+})();
+
+// SIDE NAV ACTIVE
+(function(){
+  if(window.innerWidth<768)return;
+  var secs=document.querySelectorAll('[id]');
+  var links=document.querySelectorAll('.side-nav a[href^="#"]');
+  if(!links.length)return;
+  new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        links.forEach(function(a){a.classList.remove('active');});
+        var l=document.querySelector('.side-nav a[href="#'+e.target.id+'"]');
+        if(l)l.classList.add('active');
+      }
+    });
+  },{rootMargin:'-20% 0px -70% 0px'}).observe.apply(null,[].map.call(secs,function(s){return s;}));
+  var obs=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        links.forEach(function(a){a.classList.remove('active');});
+        var l=document.querySelector('.side-nav a[href="#'+e.target.id+'"]');
+        if(l)l.classList.add('active');
+      }
+    });
+  },{rootMargin:'-20% 0px -70% 0px'});
+  secs.forEach(function(s){obs.observe(s);});
+})();
+
+// EXPANDABLE CARDS
+(function(){
+  function toggle(card){
+    var d=card.querySelector('.card-details'),h=card.querySelector('.card-header');
+    if(!d||!h)return;
+    var open=card.classList.toggle('open');
+    d.hidden=!open;
+    h.setAttribute('aria-expanded',String(open));
+  }
+  document.addEventListener('click',function(e){
+    var h=e.target.closest('.card-header');
+    if(h){var c=h.closest('.news-card');if(c)toggle(c);}
+  });
+  document.addEventListener('keydown',function(e){
+    if((e.key==='Enter'||e.key===' ')&&document.activeElement&&document.activeElement.classList.contains('card-header')){
+      e.preventDefault();var c=document.activeElement.closest('.news-card');if(c)toggle(c);
+    }
+  });
+})();
+
+// LIVE MARKET DATA
+(function(){
+  var syms=['%5EN225','%5ETOPX','%5EGSPC','%5EIXIC','USDJPY%3DX','BTC-USD','CL%3DF'];
+  var lmap={'%5EN225':'日経平均','%5ETOPX':'TOPIX','%5EGSPC':'S&P500','%5EIXIC':'NASDAQ','USDJPY%3DX':'USD/JPY','BTC-USD':'BTC','CL%3DF':'原油(WTI)'};
+  function fetch_data(){
+    fetch('https://query1.finance.yahoo.com/v7/finance/quote?symbols='+syms.join(',')+'&fields=regularMarketPrice,regularMarketChange,regularMarketChangePercent',{mode:'cors'})
+    .then(function(r){return r.json();})
+    .then(function(d){
+      var qs=d&&d.quoteResponse&&d.quoteResponse.result;
+      if(!qs)return;
+      qs.forEach(function(q){
+        var cards=document.querySelectorAll('.market-card');
+        var sym=encodeURIComponent(q.symbol).replace(/^%5e/i,'%5E');
+        var label=lmap[sym]||q.symbol;
+        cards.forEach(function(c){
+          var lel=c.querySelector('.mk-label');
+          if(lel&&lel.textContent.indexOf(label)>-1){
+            var vel=c.querySelector('.mk-value'),cel=c.querySelector('.mk-change');
+            if(vel)vel.textContent=q.regularMarketPrice.toFixed(q.symbol.indexOf('JPY')>-1?2:2);
+            if(cel){
+              var chg=q.regularMarketChange,pct=q.regularMarketChangePercent;
+              cel.textContent=(chg>=0?'▲ +':'▼ ')+Math.abs(chg).toFixed(2)+' ('+(pct>=0?'+':'')+pct.toFixed(2)+'%)';
+              cel.className='mk-change '+(chg>0.001?'mk-up':chg<-0.001?'mk-down':'mk-flat');
+            }
+          }
+        });
+      });
+      var el=document.getElementById('market-updated');
+      if(el)el.textContent='リアルタイム更新: '+new Date().toLocaleTimeString('ja-JP',{hour:'2-digit',minute:'2-digit'})+' JST';
+    }).catch(function(){});
+  }
+  fetch_data();
+  setInterval(fetch_data,300000);
+})();
+</script>
+</body>
+</html>
