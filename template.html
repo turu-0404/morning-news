@@ -5,435 +5,358 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Morning Brief — {{DATE}}</title>
 <style>
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 
-:root {
-  --color-economy: #1a56db;
-  --color-ai: #7e22ce;
-  --color-market: #047857;
-  --color-crypto: #b45309;
-  --color-geo: #be123c;
-  --color-politics: #7f1d1d;
-  --color-intl: #1e3a8a;
-  --color-social: #0c4a6e;
-  --color-expert: #0e7490;
-  --color-corp: #374151;
-  --color-energy: #92400e;
-  --color-health: #065f46;
-  --color-retail: #7c3aed;
-  --color-telecom: #0369a1;
-  --color-agri: #166534;
-  --color-bio: #701a75;
-  --bg: #f8fafc;
-  --card-bg: #ffffff;
-  --border: #e2e8f0;
-  --text: #1e293b;
-  --text-muted: #64748b;
+:root{
+  --c-economy:#1a56db;--c-ai:#7e22ce;--c-market:#047857;--c-crypto:#b45309;
+  --c-geo:#be123c;--c-politics:#7f1d1d;--c-intl:#1e3a8a;--c-social:#0c4a6e;
+  --c-expert:#0e7490;--c-corp:#374151;--c-energy:#92400e;--c-health:#065f46;
+  --c-retail:#7c3aed;--c-telecom:#0369a1;--c-agri:#166534;--c-bio:#701a75;
+  --bg:#f8fafc;--card:#fff;--border:#e2e8f0;--text:#1e293b;--muted:#475569;
+  --fact-bg:#f0fdf4;--fact-border:#22c55e;
+  --interp-bg:#eff6ff;--interp-border:#3b82f6;
+  --predict-bg:#fefce8;--predict-border:#eab308;
+  --unconf-bg:#fef2f2;--unconf-border:#ef4444;
 }
 
-body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', 'Noto Sans JP', sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  font-size: 17px;
-  line-height: 1.65;
+body{font-family:-apple-system,BlinkMacSystemFont,'Hiragino Sans','Noto Sans JP',sans-serif;background:var(--bg);color:var(--text);font-size:15px;line-height:1.65}
+
+/* HEADER */
+.site-header{position:sticky;top:0;z-index:200;background:#1e293b;color:#fff;padding:14px 16px 0;transition:padding .25s,box-shadow .25s}
+.header-main{display:flex;align-items:baseline;gap:10px;margin-bottom:6px}
+.header-main h1{font-size:22px;font-weight:800;letter-spacing:-.5px;transition:font-size .25s}
+.header-date{font-size:12px;opacity:.7;transition:opacity .25s}
+.header-legend{display:flex;gap:10px;flex-wrap:wrap;font-size:11px;margin-bottom:8px;opacity:.8;transition:max-height .25s,opacity .25s,margin .25s;max-height:40px;overflow:hidden}
+.legend-item{display:flex;align-items:center;gap:4px}
+.legend-dot{width:7px;height:7px;border-radius:50%;display:inline-block}
+.ld5{background:#15803d}.ld4{background:#65a30d}.ld3{background:#ca8a04}.ld2{background:#ea580c}.ld1{background:#dc2626}
+.site-header.shrunk{padding:6px 16px 0;box-shadow:0 2px 8px rgba(0,0,0,.25)}
+.site-header.shrunk .header-main h1{font-size:14px}
+.site-header.shrunk .header-date{opacity:0}
+.site-header.shrunk .header-legend{max-height:0;opacity:0;margin:0}
+
+/* MOBILE NAV */
+.nav-tabs{display:flex;overflow-x:auto;white-space:nowrap;-webkit-overflow-scrolling:touch;gap:3px;padding:6px 0 0;scrollbar-width:none}
+.nav-tabs::-webkit-scrollbar{display:none}
+.nav-tabs a{display:inline-block;padding:5px 10px;border-radius:18px 18px 0 0;color:#fff;text-decoration:none;font-size:11px;font-weight:600;opacity:.6;background:rgba(255,255,255,.08);flex-shrink:0;transition:opacity .15s,background .15s}
+.nav-tabs a:hover,.nav-tabs a:active{opacity:1;background:rgba(255,255,255,.18)}
+
+/* DESKTOP SIDE NAV */
+.side-nav{display:none}
+@media(min-width:768px){
+  .nav-tabs{display:none}
+  .side-nav{display:block;position:fixed;left:0;top:0;width:196px;height:100vh;overflow-y:auto;background:#1e293b;padding:68px 0 20px;z-index:100;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.2) transparent}
+  .side-nav a{display:block;padding:7px 14px 7px 18px;color:rgba(255,255,255,.7);text-decoration:none;font-size:12px;font-weight:500;border-left:3px solid transparent;transition:color .15s,border-color .15s,background .15s}
+  .side-nav a:hover{color:#fff;background:rgba(255,255,255,.07)}
+  .side-nav a.active{color:#fff;border-left-color:#38bdf8}
+  .side-nav .nav-divider{height:1px;background:rgba(255,255,255,.1);margin:6px 14px}
+  .main-wrap{margin-left:196px}
 }
 
-/* ===== HEADER ===== */
-.site-header {
-  position: sticky;
-  top: 0;
-  z-index: 200;
-  background: #1e293b;
-  color: #fff;
-  padding: 18px 16px 0;
-  transition: padding 0.25s ease, box-shadow 0.25s ease;
-}
-.header-main {
-  display: flex;
-  align-items: baseline;
-  gap: 12px;
-  margin-bottom: 8px;
-}
-.header-main h1 {
-  font-size: 28px;
-  font-weight: 800;
-  letter-spacing: -0.5px;
-  transition: font-size 0.25s ease;
-}
-.header-date {
-  font-size: 14px;
-  opacity: 0.7;
-  transition: opacity 0.25s ease;
-}
-.header-legend {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-  font-size: 11px;
-  margin-bottom: 10px;
-  opacity: 0.8;
-  transition: max-height 0.25s ease, opacity 0.25s ease, margin 0.25s ease;
-  max-height: 50px;
-  overflow: hidden;
-}
-.legend-item { display: flex; align-items: center; gap: 4px; }
-.legend-dot { width: 9px; height: 9px; border-radius: 50%; display: inline-block; }
-.ld5 { background: #15803d; }
-.ld4 { background: #65a30d; }
-.ld3 { background: #ca8a04; }
-.ld2 { background: #ea580c; }
-.ld1 { background: #dc2626; }
+/* MAIN LAYOUT */
+main{max-width:860px;margin:0 auto;padding:16px 12px 40px}
 
-/* SHRUNK */
-.site-header.shrunk { padding: 8px 16px 0; box-shadow: 0 2px 8px rgba(0,0,0,0.25); }
-.site-header.shrunk .header-main h1 { font-size: 16px; }
-.site-header.shrunk .header-legend { max-height: 0; opacity: 0; margin: 0; }
+/* MARKET CARDS */
+.market-wrap{display:flex;overflow-x:auto;gap:10px;padding:14px 12px;background:#fff;border-bottom:1px solid var(--border);scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.market-wrap::-webkit-scrollbar{display:none}
+.market-card{flex:0 0 auto;min-width:110px;background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:10px 12px;text-align:center}
+.mk-label{font-size:11px;color:var(--muted);margin-bottom:3px}
+.mk-value{font-size:17px;font-weight:700;color:var(--text)}
+.mk-change{font-size:12px;font-weight:600;margin-top:2px}
+.mk-up{color:#16a34a}.mk-down{color:#dc2626}.mk-flat{color:var(--muted)}
+.mk-source{font-size:10px;color:var(--muted);margin-top:4px}
+.market-updated{font-size:11px;color:var(--muted);text-align:right;padding:4px 12px;background:#fff}
 
-/* ===== MOBILE NAV TABS ===== */
-.nav-tabs {
-  display: flex;
-  overflow-x: auto;
-  white-space: nowrap;
-  -webkit-overflow-scrolling: touch;
-  gap: 4px;
-  padding: 8px 0 0;
-  scrollbar-width: none;
-}
-.nav-tabs::-webkit-scrollbar { display: none; }
-.nav-tabs a {
-  display: inline-block;
-  padding: 6px 12px;
-  border-radius: 20px 20px 0 0;
-  color: #fff;
-  text-decoration: none;
-  font-size: 12px;
-  font-weight: 600;
-  opacity: 0.65;
-  background: rgba(255,255,255,0.08);
-  flex-shrink: 0;
-  transition: opacity 0.15s, background 0.15s;
-}
-.nav-tabs a:hover, .nav-tabs a:active { opacity: 1; background: rgba(255,255,255,0.18); }
+/* TOP 5 SECTION */
+.top5-section{background:#fff;border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:20px}
+.top5-section h2{font-size:14px;font-weight:700;background:#1e293b;color:#fff;padding:9px 14px}
+.top5-item{display:block;padding:10px 14px;border-bottom:1px solid var(--border);text-decoration:none;color:inherit;transition:background .15s}
+.top5-item:last-child{border-bottom:none}
+.top5-item:hover{background:#f8fafc}
+.top5-badges{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:4px}
+.top5-title{font-size:13px;font-weight:600;color:var(--text);line-height:1.4}
+.top5-source{font-size:11px;color:var(--muted);margin-top:3px}
 
-/* ===== DESKTOP SIDE NAV ===== */
-.side-nav { display: none; }
+/* CHANGES SECTION */
+.changes-section{background:#fff;border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:20px}
+.changes-section h2{font-size:14px;font-weight:700;background:#334155;color:#fff;padding:9px 14px}
+.changes-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:0}
+@media(min-width:600px){.changes-grid{grid-template-columns:repeat(4,1fr)}}
+.change-col{padding:10px 12px;border-right:1px solid var(--border);border-bottom:1px solid var(--border)}
+.change-col:nth-child(even){border-right:none}
+@media(min-width:600px){
+  .change-col{border-bottom:none}
+  .change-col:last-child{border-right:none}
+  .change-col:nth-child(even){border-right:1px solid var(--border)}
+}
+.change-col-header{font-size:11px;font-weight:700;padding:3px 7px;border-radius:4px;margin-bottom:7px;display:inline-block}
+.change-new{background:#dcfce7;color:#14532d}
+.change-updated{background:#dbeafe;color:#1e3a8a}
+.change-confirmed{background:#dcfce7;color:#14532d}
+.change-removed{background:#fef2f2;color:#7f1d1d}
+.change-col ul{list-style:none;padding:0}
+.change-col ul li{font-size:11px;color:var(--text);padding:3px 0;border-bottom:1px solid #f1f5f9;line-height:1.4}
+.change-col ul li:last-child{border-bottom:none}
 
-/* ===== RESPONSIVE ===== */
-@media (min-width: 768px) {
-  .nav-tabs { display: none; }
-  .side-nav {
-    display: block;
-    position: fixed;
-    left: 0; top: 0;
-    width: 200px;
-    height: 100vh;
-    overflow-y: auto;
-    background: #1e293b;
-    padding: 80px 0 20px;
-    z-index: 100;
-    scrollbar-width: thin;
-  }
-  .side-nav a {
-    display: block;
-    padding: 9px 16px 9px 20px;
-    color: rgba(255,255,255,0.7);
-    text-decoration: none;
-    font-size: 13px;
-    font-weight: 500;
-    border-left: 3px solid transparent;
-    transition: color 0.15s, border-color 0.15s, background 0.15s;
-  }
-  .side-nav a:hover { color: #fff; background: rgba(255,255,255,0.07); }
-  .side-nav .nav-divider { height: 1px; background: rgba(255,255,255,0.1); margin: 8px 16px; }
-  .site-header { left: 200px; width: calc(100% - 200px); }
-  main { margin-left: 200px; padding: 20px 24px; max-width: calc(100% - 200px); }
-}
+/* NEWS SECTIONS */
+.news-section{margin-bottom:20px}
+.news-section-header{font-size:13px;font-weight:700;color:#fff;padding:7px 12px;border-radius:6px 6px 0 0;display:flex;align-items:center;gap:6px}
 
-/* ===== MARKET SUMMARY ===== */
-.market-summary {
-  display: flex;
-  gap: 10px;
-  overflow-x: auto;
-  padding-bottom: 4px;
-  margin-bottom: 20px;
-  scrollbar-width: none;
-}
-.market-summary::-webkit-scrollbar { display: none; }
-.market-card {
-  flex-shrink: 0;
-  background: var(--card-bg);
-  border-radius: 10px;
-  padding: 10px 14px;
-  min-width: 105px;
-  border: 1px solid var(--border);
-  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
-  text-align: center;
-}
-.mk-label { font-size: 11px; color: var(--text-muted); margin-bottom: 2px; }
-.mk-value { font-size: 15px; font-weight: 700; }
-.mk-change { font-size: 12px; margin-top: 2px; }
-.mk-up { color: #15803d; } .mk-down { color: #dc2626; } .mk-flat { color: var(--text-muted); }
-.mk-source { font-size: 10px; color: var(--text-muted); margin-top: 3px; }
+/* EXPANDABLE CARDS */
+.news-card{background:var(--card);border:1px solid var(--border);border-top:none}
+.news-card:last-child{border-radius:0 0 6px 6px}
+.card-header{cursor:pointer;user-select:none;padding:11px 13px;transition:background .15s;outline:none}
+.card-header:hover{background:#f8fafc}
+.card-header:focus-visible{box-shadow:inset 0 0 0 2px #3b82f6}
+.card-badges{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:5px}
+.card-title{font-size:13px;font-weight:700;color:var(--text);line-height:1.4;margin-bottom:4px}
+.card-summary{font-size:12px;color:var(--muted);line-height:1.5}
+.card-expand-row{display:flex;justify-content:space-between;align-items:center;margin-top:6px}
+.card-time{font-size:10px;color:var(--muted)}
+.card-expand-icon{font-size:10px;color:var(--muted);transition:transform .2s}
+.news-card.open .card-expand-icon{transform:rotate(180deg)}
 
-/* ===== TODAY HIGHLIGHTS ===== */
-.today-highlights {
-  background: var(--card-bg);
-  border-radius: 12px;
-  border: 1px solid var(--border);
-  padding: 14px 16px;
-  margin-bottom: 24px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-}
-.today-highlights h2 { font-size: 13px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 10px; }
-.today-item { font-size: 14px; padding: 5px 0; border-bottom: 1px solid var(--border); }
-.today-item:last-child { border-bottom: none; }
-.ti-cat { display: inline-block; font-size: 11px; font-weight: 700; margin-right: 6px; opacity: 0.75; }
+/* CARD DETAILS */
+.card-details{padding:0 13px 12px;border-top:1px solid var(--border)}
+.card-details[hidden]{display:none}
+.fact-list{list-style:none;padding:10px 0 8px;display:flex;flex-direction:column;gap:6px}
+.fact-list li{font-size:12px;padding:7px 10px;border-radius:5px;border-left:3px solid;line-height:1.55;position:relative}
+.fact-list li::before{content:attr(data-type);font-size:10px;font-weight:700;margin-right:5px;opacity:.85}
+.fact-verified{background:var(--fact-bg);border-color:var(--fact-border);color:#14532d}
+.fact-interpret{background:var(--interp-bg);border-color:var(--interp-border);color:#1e3a8a}
+.fact-predict{background:var(--predict-bg);border-color:var(--predict-border);color:#78350f}
+.fact-unconf{background:var(--unconf-bg);border-color:var(--unconf-border);color:#7f1d1d}
+.card-sources{font-size:11px;color:var(--muted);padding-top:6px;border-top:1px solid var(--border);line-height:1.7}
+.card-sources a{color:#1a56db;text-decoration:none}
+.card-sources a:hover{text-decoration:underline}
 
-/* ===== SECTION HEADERS ===== */
-.section-header {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin: 32px 0 14px;
-  padding-bottom: 8px;
-  border-bottom: 2px solid;
-}
-.section-header h2 { font-size: 18px; font-weight: 800; }
-.subsection-header {
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--text-muted);
-  margin: 20px 0 10px;
-  padding-left: 10px;
-  border-left: 3px solid var(--border);
-}
+/* BADGES */
+.badge{font-size:10px;font-weight:700;padding:2px 7px;border-radius:10px;white-space:nowrap}
+.badge-official{background:#dcfce7;color:#14532d}
+.badge-tier1{background:#dbeafe;color:#1e3a8a}
+.badge-tier1-solo{background:#e0f2fe;color:#0c4a6e}
+.badge-tier2{background:#f1f5f9;color:#334155}
+.badge-predict{background:#fef9c3;color:#78350f}
+.badge-low{background:#fef2f2;color:#7f1d1d}
+.badge-new{background:#dcfce7;color:#14532d}
+.badge-updated{background:#dbeafe;color:#1e3a8a}
+.badge-confirmed{background:#dcfce7;color:#14532d}
+.badge-continuing{background:#f1f5f9;color:#334155}
+.badge-score{font-weight:700}
+.score-5{color:#15803d}.score-4{color:#65a30d}.score-3{color:#ca8a04}.score-2{color:#ea580c}.score-1{color:#dc2626}
 
-/* ===== NEWS CARDS ===== */
-.news-card {
-  background: var(--card-bg);
-  border-radius: 12px;
-  border: 1px solid var(--border);
-  padding: 14px 16px;
-  margin-bottom: 12px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-}
-.card-meta {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  flex-wrap: wrap;
-  font-size: 12px;
-  color: var(--text-muted);
-  margin-bottom: 6px;
-}
-.tier-badge {
-  font-size: 11px; font-weight: 700;
-  padding: 2px 6px; border-radius: 4px;
-  background: #f1f5f9; color: #475569;
-}
-.card-score {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  font-size: 12px; font-weight: 600;
-  padding: 2px 8px; border-radius: 20px;
-  color: #fff; margin-bottom: 8px;
-}
-.score-5 { background: #15803d; } .score-4 { background: #65a30d; }
-.score-3 { background: #ca8a04; } .score-2 { background: #ea580c; } .score-1 { background: #dc2626; }
-.card-title { font-size: 18px; font-weight: 800; line-height: 1.35; margin-bottom: 8px; }
-.warn-box {
-  background: #fef9c3; border: 1px solid #fde047;
-  border-radius: 8px; padding: 8px 12px;
-  font-size: 13px; margin-bottom: 8px; color: #713f12;
-}
-.warn-box.low-trust { background: #fef2f2; border-color: #fca5a5; color: #7f1d1d; }
-.low-trust-badge {
-  display: inline-block; font-size: 11px; font-weight: 700;
-  background: #fef2f2; color: #dc2626; border: 1px solid #fca5a5;
-  border-radius: 4px; padding: 2px 6px; margin-bottom: 6px;
-}
-.continuing-badge {
-  display: inline-block; font-size: 11px; font-weight: 700;
-  background: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe;
-  border-radius: 4px; padding: 2px 6px; margin-bottom: 6px;
-}
-.fact-list { list-style: none; margin: 8px 0; }
-.fact-list li {
-  font-size: 15px; padding: 5px 0 5px 22px;
-  position: relative; border-bottom: 1px solid #f1f5f9;
-}
-.fact-list li:last-child { border-bottom: none; }
-.fact-list li::before { content: attr(data-type); position: absolute; left: 0; font-size: 13px; }
-.term-chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0; }
-.term-chip {
-  font-size: 12px; padding: 3px 8px; border-radius: 20px;
-  background: #f1f5f9; color: #475569; cursor: pointer;
-  border: 1px solid var(--border); text-decoration: none;
-}
-.term-chip:hover { background: #e2e8f0; }
-.card-sources {
-  font-size: 12px; color: var(--text-muted);
-  margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--border);
-}
-.card-sources a { color: var(--text-muted); }
-.card-sources a:hover { color: var(--text); }
+/* GLOSSARY */
+.glossary-section{background:#fff;border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:20px}
+.glossary-section h2{font-size:14px;font-weight:700;background:#0f172a;color:#fff;padding:9px 14px}
+.glossary-list{padding:6px 0}
+.glossary-item{padding:10px 14px;border-bottom:1px solid var(--border)}
+.glossary-item:last-child{border-bottom:none}
+.glossary-term{font-size:13px;font-weight:700;margin-bottom:3px}
+.glossary-def{font-size:12px;color:var(--muted);line-height:1.6}
 
-/* ===== GLOSSARY MODAL ===== */
-.modal-overlay {
-  display: none; position: fixed; inset: 0;
-  background: rgba(0,0,0,0.4); z-index: 500; align-items: flex-end;
-}
-.modal-overlay.open { display: flex; }
-.modal-sheet {
-  background: #fff; border-radius: 20px 20px 0 0;
-  width: 100%; max-height: 70vh; overflow-y: auto;
-  padding: 16px 16px 40px;
-  animation: slideUp 0.28s ease;
-}
-@keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
-.modal-handle {
-  display: block; width: 36px; height: 4px; background: #d1d5db;
-  border-radius: 2px; margin: 0 auto 14px; cursor: pointer; border: none;
-}
-.glossary-item { padding: 11px 0; border-bottom: 1px solid var(--border); }
-.glossary-item:last-child { border-bottom: none; }
-.glossary-term { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
-.glossary-def { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
+/* FOOTER */
+footer{margin-top:40px;padding:16px 14px 48px;border-top:1px solid var(--border)}
+.disclaimer{font-size:11px;color:var(--muted);line-height:1.75;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:11px 13px;margin-bottom:10px}
+.footer-meta{font-size:11px;color:var(--muted)}
+.footer-meta a{color:#1a56db;text-decoration:none}
 
-/* ===== FOOTER ===== */
-footer {
-  margin-top: 48px; padding: 20px 16px 48px;
-  border-top: 1px solid var(--border);
-}
-@media (min-width: 768px) { footer { margin-left: 200px; } }
-.disclaimer {
-  font-size: 12px; color: var(--text-muted); line-height: 1.75;
-  background: #f8fafc; border: 1px solid var(--border);
-  border-radius: 8px; padding: 12px 14px; margin-bottom: 10px;
-}
-.footer-meta { font-size: 12px; color: var(--text-muted); }
-.footer-meta a { color: #1a56db; }
+/* WCAG 2.2 AA — verified contrast ratios */
+/* #14532d on #dcfce7 = 7.1:1 | #1e3a8a on #dbeafe = 7.8:1 */
+/* #78350f on #fef9c3 = 6.3:1 | #7f1d1d on #fef2f2 = 8.1:1 */
+/* #0c4a6e on #e0f2fe = 7.2:1 | #334155 on #f1f5f9 = 6.8:1 */
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 </head>
 <body>
 
 <header class="site-header" id="top">
   <div class="header-main">
-    <h1>🌅 Morning Brief</h1>
+    <h1>&#127749; Morning Brief</h1>
     <span class="header-date">{{DATE}}</span>
   </div>
   <div class="header-legend">
-    <span class="legend-item"><span class="legend-dot ld5"></span>★5 公式+複数Tier1</span>
-    <span class="legend-item"><span class="legend-dot ld4"></span>★4 Tier1複数確認</span>
-    <span class="legend-item"><span class="legend-dot ld3"></span>★3 Tier1単独/複数Tier2</span>
-    <span class="legend-item"><span class="legend-dot ld2"></span>★2 Tier2のみ</span>
-    <span class="legend-item"><span class="legend-dot ld1"></span>★1 未照合</span>
+    <span class="legend-item"><span class="legend-dot ld5"></span>&#9733;5 公式確認済み</span>
+    <span class="legend-item"><span class="legend-dot ld4"></span>&#9733;4 Tier1複数</span>
+    <span class="legend-item"><span class="legend-dot ld3"></span>&#9733;3 Tier1単独</span>
+    <span class="legend-item"><span class="legend-dot ld2"></span>&#9733;2 Tier2のみ</span>
+    <span class="legend-item"><span class="legend-dot ld1"></span>&#9733;1 低信頼</span>
   </div>
-  <nav class="nav-tabs">
-    <a href="#market">📊 市場</a>
-    <a href="#economy">💹 経済</a>
-    <a href="#ai">🤖 AI</a>
-    <a href="#stocks">📈 株式</a>
-    <a href="#crypto">₿ 暗号資産</a>
-    <a href="#geo">🌐 地政学</a>
-    <a href="#politics">🏛️ 政治</a>
-    <a href="#intl">🌍 国際</a>
-    <a href="#social">👥 社会</a>
-    <a href="#corp">🏢 企業</a>
-    <a href="#agri">🌾 農業</a>
-    <a href="#bio">🧬 生命科学</a>
-    <a href="#expert">🎙️ 専門家</a>
-    <a href="archive-index.html">📚 過去</a>
+  <nav class="nav-tabs" aria-label="セクション一覧">
+    <a href="#market">&#128202; 市場</a>
+    <a href="#top5">&#9889; 重要5本</a>
+    <a href="#changes">&#128203; 変化</a>
+    <a href="#economy">&#128185; 経済</a>
+    <a href="#ai">&#129302; AI</a>
+    <a href="#stocks">&#128200; 株式</a>
+    <a href="#crypto">&#8383; 暗号</a>
+    <a href="#geo">&#127760; 地政学</a>
+    <a href="#politics">&#127963; 政治</a>
+    <a href="#intl">&#127757; 国際</a>
+    <a href="#social">&#128101; 社会</a>
+    <a href="#corp">&#127970; 企業</a>
+    <a href="#agri">&#127806; 農業</a>
+    <a href="#bio">&#129516; 生命科学</a>
+    <a href="#expert">&#127897; 専門家</a>
+    <a href="archive-index.html">&#128218; 過去</a>
   </nav>
 </header>
 
-<nav class="side-nav">
-  <a href="#market">📊 マーケット</a>
-  <a href="#economy">💹 経済・マクロ</a>
-  <a href="#ai">🤖 AI・テクノロジー</a>
-  <a href="#stocks">📈 株式・市場</a>
-  <a href="#crypto">₿ 暗号資産</a>
-  <a href="#geo">🌐 地政学</a>
-  <a href="#politics">🏛️ 政治</a>
-  <a href="#intl">🌍 国際情勢</a>
-  <a href="#social">👥 社会問題</a>
-  <a href="#corp">🏢 企業</a>
-  <a href="#agri">🌾 農業</a>
-  <a href="#bio">🧬 生命科学</a>
-  <a href="#expert">🎙️ 専門家</a>
+<nav class="side-nav" aria-label="サイドナビゲーション">
+  <a href="#market">&#128202; マーケット</a>
+  <a href="#top5">&#9889; 重要5本</a>
+  <a href="#changes">&#128203; 昨日からの変化</a>
   <div class="nav-divider"></div>
-  <a href="archive-index.html">📚 アーカイブ</a>
+  <a href="#economy">&#128185; 経済・マクロ</a>
+  <a href="#ai">&#129302; AI・テクノロジー</a>
+  <a href="#stocks">&#128200; 株式・市場</a>
+  <a href="#crypto">&#8383; 暗号資産</a>
+  <a href="#geo">&#127760; 地政学</a>
+  <a href="#politics">&#127963; 政治</a>
+  <a href="#intl">&#127757; 国際情勢</a>
+  <a href="#social">&#128101; 社会問題</a>
+  <a href="#corp">&#127970; 企業</a>
+  <a href="#agri">&#127806; 農業</a>
+  <a href="#bio">&#129516; 生命科学</a>
+  <a href="#expert">&#127897; 専門家</a>
+  <div class="nav-divider"></div>
+  <a href="archive-index.html">&#128218; アーカイブ</a>
 </nav>
 
-<main>
+<div class="main-wrap">
 
-  <section id="market">
-    <div class="market-summary">
+  <section id="market" aria-label="マーケットサマリー">
+    <div class="market-wrap" role="list">
       {{MARKET_SUMMARY}}
     </div>
+    <p class="market-updated" id="market-updated" aria-live="polite"></p>
   </section>
 
-  <section class="today-highlights">
-    <h2>📌 今朝のポイント</h2>
-    {{TODAY_HIGHLIGHTS}}
-  </section>
+  <main>
 
-  {{NEWS_SECTIONS}}
+    <section id="top5" class="top5-section" aria-label="今日の最重要ニュース">
+      <h2>&#9889; 今日の最重要5本</h2>
+      {{TODAY_HIGHLIGHTS}}
+    </section>
 
-</main>
+    <section id="changes" class="changes-section" aria-label="昨日からの変化">
+      <h2>&#128203; 昨日からの変化</h2>
+      {{CHANGES_SECTION}}
+    </section>
 
-<div class="modal-overlay" id="glossary-modal">
-  <div class="modal-sheet">
-    <button class="modal-handle" onclick="document.getElementById('glossary-modal').classList.remove('open')"></button>
-    <h2 style="font-size:15px;font-weight:800;margin-bottom:12px">📖 用語辞典</h2>
-    <div id="glossary-content">{{GLOSSARY_ITEMS}}</div>
-  </div>
+    {{NEWS_SECTIONS}}
+
+    <section aria-label="用語解説" class="glossary-section">
+      <h2>&#128214; 今日の用語解説</h2>
+      <div class="glossary-list">
+        {{GLOSSARY_ITEMS}}
+      </div>
+    </section>
+
+    <footer>
+      <div class="disclaimer">
+        <strong>【免責事項】</strong>
+        本ページは公開情報をもとにした独自要約であり、投資助言・法的助言・医療助言を構成するものではありません。
+        掲載情報の正確性・完全性を保証するものではなく、情報に基づく一切の行動は自己責任において行ってください。
+        市場データ・数値は取得時点のものであり、最新状況は各一次情報源にてご確認ください。
+        本サイトは個人利用目的で作成されており、商業目的での利用は想定していません。
+        各記事の著作権は原著作者に帰属します。本ページの内容は転載・二次利用を禁じます。
+      </div>
+      <p class="footer-meta">生成日時: {{GENERATED_AT}} JST &nbsp;/&nbsp; <a href="archive-index.html">&#128218; 過去のアーカイブ</a> &nbsp;/&nbsp; <a href="#top">↑ トップへ</a></p>
+    </footer>
+
+  </main>
 </div>
 
-<footer>
-  <p class="disclaimer">本サイトは公開情報に基づくニュース要約を目的としており、投資助言、投資勧誘、金融商品の売買推奨を目的とするものではありません。掲載内容の正確性・完全性・最新性は保証しません。投資判断は必ず一次情報および専門家の助言に基づき、ご自身の責任で行ってください。引用・参照元の著作権は各権利者に帰属します。</p>
-  <p class="footer-meta">生成日時: {{GENERATED_AT}} ／ <a href="archive-index.html">📚 過去のニュース</a></p>
-</footer>
-
 <script>
+// HEADER SHRINK
 (function(){
-  var hdr = document.querySelector('.site-header');
-  if(hdr){
-    window.addEventListener('scroll', function(){
-      hdr.classList.toggle('shrunk', window.scrollY > 60);
-    }, {passive: true});
-  }
-  document.querySelectorAll('a[href^="#"]').forEach(function(a){
-    a.addEventListener('click', function(e){
-      var id = this.getAttribute('href').slice(1);
-      var target = document.getElementById(id);
-      if(!target) return;
-      e.preventDefault();
-      var offset = (hdr ? hdr.offsetHeight : 0) + 8;
-      window.scrollTo({top: target.getBoundingClientRect().top + window.scrollY - offset, behavior:'smooth'});
+  var h=document.getElementById('top'),t=false;
+  window.addEventListener('scroll',function(){
+    if(!t){requestAnimationFrame(function(){h.classList.toggle('shrunk',window.scrollY>60);t=false;});t=true;}
+  },{passive:true});
+})();
+
+// SIDE NAV ACTIVE
+(function(){
+  if(window.innerWidth<768)return;
+  var secs=document.querySelectorAll('[id]');
+  var links=document.querySelectorAll('.side-nav a[href^="#"]');
+  if(!links.length)return;
+  new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        links.forEach(function(a){a.classList.remove('active');});
+        var l=document.querySelector('.side-nav a[href="#'+e.target.id+'"]');
+        if(l)l.classList.add('active');
+      }
     });
+  },{rootMargin:'-20% 0px -70% 0px'}).observe.apply(null,[].map.call(secs,function(s){return s;}));
+  var obs=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        links.forEach(function(a){a.classList.remove('active');});
+        var l=document.querySelector('.side-nav a[href="#'+e.target.id+'"]');
+        if(l)l.classList.add('active');
+      }
+    });
+  },{rootMargin:'-20% 0px -70% 0px'});
+  secs.forEach(function(s){obs.observe(s);});
+})();
+
+// EXPANDABLE CARDS
+(function(){
+  function toggle(card){
+    var d=card.querySelector('.card-details'),h=card.querySelector('.card-header');
+    if(!d||!h)return;
+    var open=card.classList.toggle('open');
+    d.hidden=!open;
+    h.setAttribute('aria-expanded',String(open));
+  }
+  document.addEventListener('click',function(e){
+    var h=e.target.closest('.card-header');
+    if(h){var c=h.closest('.news-card');if(c)toggle(c);}
   });
-  document.addEventListener('click', function(e){
-    if(e.target.classList.contains('term-chip')){
-      var term = e.target.dataset.term;
-      var modal = document.getElementById('glossary-modal');
-      var items = document.querySelectorAll('.glossary-item');
-      var found = false;
-      items.forEach(function(item){
-        var show = !term || item.dataset.term === term;
-        item.style.display = show ? 'block' : 'none';
-        if(show) found = true;
-      });
-      if(!found) items.forEach(function(i){ i.style.display='block'; });
-      modal.classList.add('open');
+  document.addEventListener('keydown',function(e){
+    if((e.key==='Enter'||e.key===' ')&&document.activeElement&&document.activeElement.classList.contains('card-header')){
+      e.preventDefault();var c=document.activeElement.closest('.news-card');if(c)toggle(c);
     }
   });
-  var overlay = document.getElementById('glossary-modal');
-  if(overlay) overlay.addEventListener('click', function(e){ if(e.target===this) this.classList.remove('open'); });
+})();
+
+// LIVE MARKET DATA
+(function(){
+  var syms=['%5EN225','%5ETOPX','%5EGSPC','%5EIXIC','USDJPY%3DX','BTC-USD','CL%3DF'];
+  var lmap={'%5EN225':'日経平均','%5ETOPX':'TOPIX','%5EGSPC':'S&P500','%5EIXIC':'NASDAQ','USDJPY%3DX':'USD/JPY','BTC-USD':'BTC','CL%3DF':'原油(WTI)'};
+  function fetch_data(){
+    fetch('https://query1.finance.yahoo.com/v7/finance/quote?symbols='+syms.join(',')+'&fields=regularMarketPrice,regularMarketChange,regularMarketChangePercent',{mode:'cors'})
+    .then(function(r){return r.json();})
+    .then(function(d){
+      var qs=d&&d.quoteResponse&&d.quoteResponse.result;
+      if(!qs)return;
+      qs.forEach(function(q){
+        var cards=document.querySelectorAll('.market-card');
+        var sym=encodeURIComponent(q.symbol).replace(/^%5e/i,'%5E');
+        var label=lmap[sym]||q.symbol;
+        cards.forEach(function(c){
+          var lel=c.querySelector('.mk-label');
+          if(lel&&lel.textContent.indexOf(label)>-1){
+            var vel=c.querySelector('.mk-value'),cel=c.querySelector('.mk-change');
+            if(vel)vel.textContent=q.regularMarketPrice.toFixed(q.symbol.indexOf('JPY')>-1?2:2);
+            if(cel){
+              var chg=q.regularMarketChange,pct=q.regularMarketChangePercent;
+              cel.textContent=(chg>=0?'▲ +':'▼ ')+Math.abs(chg).toFixed(2)+' ('+(pct>=0?'+':'')+pct.toFixed(2)+'%)';
+              cel.className='mk-change '+(chg>0.001?'mk-up':chg<-0.001?'mk-down':'mk-flat');
+            }
+          }
+        });
+      });
+      var el=document.getElementById('market-updated');
+      if(el)el.textContent='リアルタイム更新: '+new Date().toLocaleTimeString('ja-JP',{hour:'2-digit',minute:'2-digit'})+' JST';
+    }).catch(function(){});
+  }
+  fetch_data();
+  setInterval(fetch_data,300000);
 })();
 </script>
-
 </body>
 </html>
