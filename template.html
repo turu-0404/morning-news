@@ -323,39 +323,69 @@ footer{margin-top:40px;padding:16px 14px 48px;border-top:1px solid var(--border)
   });
 })();
 
-// LIVE MARKET DATA
+// LIVE MARKET DATA (multi-API: Yahoo Finance query2 + CoinGecko)
 (function(){
-  var syms=['%5EN225','%5ETOPX','%5EGSPC','%5EIXIC','USDJPY%3DX','BTC-USD','CL%3DF'];
-  var lmap={'%5EN225':'日経平均','%5ETOPX':'TOPIX','%5EGSPC':'S&P500','%5EIXIC':'NASDAQ','USDJPY%3DX':'USD/JPY','BTC-USD':'BTC','CL%3DF':'原油(WTI)'};
-  function fetch_data(){
-    fetch('https://query1.finance.yahoo.com/v7/finance/quote?symbols='+syms.join(',')+'&fields=regularMarketPrice,regularMarketChange,regularMarketChangePercent',{mode:'cors'})
-    .then(function(r){return r.json();})
-    .then(function(d){
-      var qs=d&&d.quoteResponse&&d.quoteResponse.result;
-      if(!qs)return;
-      qs.forEach(function(q){
-        var cards=document.querySelectorAll('.market-card');
-        var sym=encodeURIComponent(q.symbol).replace(/^%5e/i,'%5E');
-        var label=lmap[sym]||q.symbol;
-        cards.forEach(function(c){
-          var lel=c.querySelector('.mk-label');
-          if(lel&&lel.textContent.indexOf(label)>-1){
-            var vel=c.querySelector('.mk-value'),cel=c.querySelector('.mk-change');
-            if(vel)vel.textContent=q.regularMarketPrice.toFixed(q.symbol.indexOf('JPY')>-1?2:2);
-            if(cel){
-              var chg=q.regularMarketChange,pct=q.regularMarketChangePercent;
-              cel.textContent=(chg>=0?'▲ +':'▼ ')+Math.abs(chg).toFixed(2)+' ('+(pct>=0?'+':'')+pct.toFixed(2)+'%)';
-              cel.className='mk-change '+(chg>0.001?'mk-up':chg<-0.001?'mk-down':'mk-flat');
-            }
-          }
-        });
-      });
-      var el=document.getElementById('market-updated');
-      if(el)el.textContent='リアルタイム更新: '+new Date().toLocaleTimeString('ja-JP',{hour:'2-digit',minute:'2-digit'})+' JST';
-    }).catch(function(){});
+  var YAHOO=[
+    {sym:'^N225',   label:'日経平均', dec:0},
+    {sym:'^TOPX',   label:'TOPIX',   dec:0},
+    {sym:'^GSPC',   label:'S&P500',  dec:2},
+    {sym:'^IXIC',   label:'NASDAQ',  dec:2},
+    {sym:'USDJPY=X',label:'USD/JPY', dec:2},
+    {sym:'CL=F',    label:'原油',    dec:2},
+  ];
+  function findCard(label){
+    var all=document.querySelectorAll('.market-card');
+    for(var i=0;i<all.length;i++){
+      var el=all[i].querySelector('.mk-label');
+      if(el&&el.textContent.indexOf(label)>-1) return all[i];
+    }
+    return null;
   }
-  fetch_data();
-  setInterval(fetch_data,300000);
+  function applyCard(label,price,chg,pct,dec){
+    var c=findCard(label); if(!c) return;
+    var vel=c.querySelector('.mk-value'), cel=c.querySelector('.mk-change');
+    if(vel) vel.textContent=price.toFixed(dec)+(label==='USD/JPY'?' 円':'');
+    if(cel){
+      var sign=chg>=0?'▲ +':'▼ ';
+      cel.textContent=sign+Math.abs(chg).toFixed(dec)+' ('+(pct>=0?'+':'')+pct.toFixed(2)+'%)';
+      cel.className='mk-change '+(chg>0.001?'mk-up':chg<-0.001?'mk-down':'mk-flat');
+    }
+  }
+  function fetchYahoo(){
+    var syms=YAHOO.map(function(c){return encodeURIComponent(c.sym);}).join(',');
+    return fetch(
+      'https://query2.finance.yahoo.com/v7/finance/quote?symbols='+syms+
+      '&fields=regularMarketPrice,regularMarketChange,regularMarketChangePercent',
+      {mode:'cors',credentials:'omit'}
+    ).then(function(r){return r.json();}).then(function(d){
+      var qs=(d&&d.quoteResponse&&d.quoteResponse.result)||[];
+      qs.forEach(function(q){
+        var cfg=YAHOO.find(function(c){return c.sym===q.symbol;});
+        if(cfg) applyCard(cfg.label,q.regularMarketPrice,q.regularMarketChange,q.regularMarketChangePercent,cfg.dec);
+      });
+      return qs.length>0;
+    });
+  }
+  function fetchBTC(){
+    return fetch(
+      'https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd&include_24hr_change=true',
+      {mode:'cors'}
+    ).then(function(r){return r.json();}).then(function(d){
+      if(!d||!d.bitcoin) return false;
+      var price=d.bitcoin.usd, pct=d.bitcoin.usd_24h_change||0, chg=price*pct/100;
+      applyCard('BTC',price,chg,pct,0);
+      return true;
+    });
+  }
+  var updEl=document.getElementById('market-updated');
+  function refresh(){
+    Promise.allSettled([fetchYahoo(),fetchBTC()]).then(function(res){
+      var ok=res.some(function(r){return r.status==='fulfilled'&&r.value===true;});
+      if(ok&&updEl) updEl.textContent='リアルタイム更新: '+new Date().toLocaleTimeString('ja-JP',{hour:'2-digit',minute:'2-digit'})+' JST';
+    });
+  }
+  refresh();
+  setInterval(refresh,300000);
 })();
 </script>
 </body>
