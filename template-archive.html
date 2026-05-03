@@ -160,10 +160,6 @@ footer{margin-top:40px;padding:16px 14px 48px;border-top:1px solid var(--border)
 .footer-meta{font-size:11px;color:var(--muted)}
 .footer-meta a{color:#1a56db;text-decoration:none}
 
-/* WCAG 2.2 AA — verified contrast ratios */
-/* #14532d on #dcfce7 = 7.1:1 | #1e3a8a on #dbeafe = 7.8:1 */
-/* #78350f on #fef9c3 = 6.3:1 | #7f1d1d on #fef2f2 = 8.1:1 */
-/* #0c4a6e on #e0f2fe = 7.2:1 | #334155 on #f1f5f9 = 6.8:1 */
 /* --- 改善: タップ領域と主要バッジの視認性 --- */
 .card-expand-icon{font-size:12px;min-width:24px;text-align:center;padding:2px 4px}
 .badge-official,.badge-low{font-size:11px;padding:3px 9px}
@@ -174,7 +170,13 @@ footer{margin-top:40px;padding:16px 14px 48px;border-top:1px solid var(--border)
 .news-card.is-low-trust{border-left:3px solid #fca5a5;background:#fff9f9}
 .news-card.is-low-trust .card-header{background:#fff9f9}
 .news-card.is-low-trust .card-header:hover{background:#fff0f0}
-.market-updated::before{content:"📡 "}
+/* アーカイブ用: 電波アイコンを表示しない（最新ページのCSSパッチを上書き） */
+.market-updated::before { content: none; }
+
+/* WCAG 2.2 AA — verified contrast ratios */
+/* #14532d on #dcfce7 = 7.1:1 | #1e3a8a on #dbeafe = 7.8:1 */
+/* #78350f on #fef9c3 = 6.3:1 | #7f1d1d on #fef2f2 = 8.1:1 */
+/* #0c4a6e on #e0f2fe = 7.2:1 | #334155 on #f1f5f9 = 6.8:1 */
 @media(prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 </head>
@@ -326,69 +328,12 @@ footer{margin-top:40px;padding:16px 14px 48px;border-top:1px solid var(--border)
   });
 })();
 
-// LIVE MARKET DATA (multi-API: Yahoo Finance query2 + CoinGecko)
+// ARCHIVE MARKET SNAPSHOT
 (function(){
-  var YAHOO=[
-    {sym:'^N225',   label:'日経平均', dec:0},
-    {sym:'^TOPX',   label:'TOPIX',   dec:0},
-    {sym:'^GSPC',   label:'S&P500',  dec:2},
-    {sym:'^IXIC',   label:'NASDAQ',  dec:2},
-    {sym:'USDJPY=X',label:'USD/JPY', dec:2},
-    {sym:'CL=F',    label:'原油',    dec:2},
-  ];
-  function findCard(label){
-    var all=document.querySelectorAll('.market-card');
-    for(var i=0;i<all.length;i++){
-      var el=all[i].querySelector('.mk-label');
-      if(el&&el.textContent.indexOf(label)>-1) return all[i];
-    }
-    return null;
-  }
-  function applyCard(label,price,chg,pct,dec){
-    var c=findCard(label); if(!c) return;
-    var vel=c.querySelector('.mk-value'), cel=c.querySelector('.mk-change');
-    if(vel) vel.textContent=price.toFixed(dec)+(label==='USD/JPY'?' 円':'');
-    if(cel){
-      var sign=chg>=0?'▲ +':'▼ ';
-      cel.textContent=sign+Math.abs(chg).toFixed(dec)+' ('+(pct>=0?'+':'')+pct.toFixed(2)+'%)';
-      cel.className='mk-change '+(chg>0.001?'mk-up':chg<-0.001?'mk-down':'mk-flat');
-    }
-  }
-  function fetchYahoo(){
-    var syms=YAHOO.map(function(c){return encodeURIComponent(c.sym);}).join(',');
-    return fetch(
-      'https://query2.finance.yahoo.com/v7/finance/quote?symbols='+syms+
-      '&fields=regularMarketPrice,regularMarketChange,regularMarketChangePercent',
-      {mode:'cors',credentials:'omit'}
-    ).then(function(r){return r.json();}).then(function(d){
-      var qs=(d&&d.quoteResponse&&d.quoteResponse.result)||[];
-      qs.forEach(function(q){
-        var cfg=YAHOO.find(function(c){return c.sym===q.symbol;});
-        if(cfg) applyCard(cfg.label,q.regularMarketPrice,q.regularMarketChange,q.regularMarketChangePercent,cfg.dec);
-      });
-      return qs.length>0;
-    });
-  }
-  function fetchBTC(){
-    return fetch(
-      'https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd&include_24hr_change=true',
-      {mode:'cors'}
-    ).then(function(r){return r.json();}).then(function(d){
-      if(!d||!d.bitcoin) return false;
-      var price=d.bitcoin.usd, pct=d.bitcoin.usd_24h_change||0, chg=price*pct/100;
-      applyCard('BTC',price,chg,pct,0);
-      return true;
-    });
-  }
   var updEl=document.getElementById('market-updated');
-  function refresh(){
-    Promise.allSettled([fetchYahoo(),fetchBTC()]).then(function(res){
-      var ok=res.some(function(r){return r.status==='fulfilled'&&r.value===true;});
-      if(ok&&updEl) updEl.textContent='リアルタイム更新: '+new Date().toLocaleTimeString('ja-JP',{hour:'2-digit',minute:'2-digit'})+' JST';
-    });
+  if(updEl){
+    updEl.textContent='※ アーカイブ: 生成時点のスナップショット（リアルタイム更新なし）';
   }
-  refresh();
-  setInterval(refresh,300000);
 })();
 </script>
 </body>

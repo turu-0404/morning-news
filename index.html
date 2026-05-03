@@ -164,6 +164,17 @@ footer{margin-top:40px;padding:16px 14px 48px;border-top:1px solid var(--border)
 /* #14532d on #dcfce7 = 7.1:1 | #1e3a8a on #dbeafe = 7.8:1 */
 /* #78350f on #fef9c3 = 6.3:1 | #7f1d1d on #fef2f2 = 8.1:1 */
 /* #0c4a6e on #e0f2fe = 7.2:1 | #334155 on #f1f5f9 = 6.8:1 */
+/* --- 改善: タップ領域と主要バッジの視認性 --- */
+.card-expand-icon{font-size:12px;min-width:24px;text-align:center;padding:2px 4px}
+.badge-official,.badge-low{font-size:11px;padding:3px 9px}
+/* --- 改善: 情報区分ラベルのspan方式 --- */
+.fact-type{display:inline-block;font-size:10px;font-weight:700;margin-right:6px;margin-bottom:2px;opacity:.85}
+.fact-list li.has-fact-type::before{content:none;margin-right:0}
+/* --- 改善: 低信頼カードの視覚分離 --- */
+.news-card.is-low-trust{border-left:3px solid #fca5a5;background:#fff9f9}
+.news-card.is-low-trust .card-header{background:#fff9f9}
+.news-card.is-low-trust .card-header:hover{background:#fff0f0}
+.market-updated::before{content:"📡 "}
 @media(prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 </head>
@@ -1209,23 +1220,15 @@ footer{margin-top:40px;padding:16px 14px 48px;border-top:1px solid var(--border)
 // SIDE NAV ACTIVE
 (function(){
   if(window.innerWidth<768)return;
-  var secs=document.querySelectorAll('[id]');
+  var secs=document.querySelectorAll('main section[id]');
   var links=document.querySelectorAll('.side-nav a[href^="#"]');
-  if(!links.length)return;
-  new IntersectionObserver(function(entries){
-    entries.forEach(function(e){
-      if(e.isIntersecting){
-        links.forEach(function(a){a.classList.remove('active');});
-        var l=document.querySelector('.side-nav a[href="#'+e.target.id+'"]');
-        if(l)l.classList.add('active');
-      }
-    });
-  },{rootMargin:'-20% 0px -70% 0px'}).observe.apply(null,[].map.call(secs,function(s){return s;}));
+  if(!links.length||!secs.length||!('IntersectionObserver' in window))return;
   var obs=new IntersectionObserver(function(entries){
     entries.forEach(function(e){
       if(e.isIntersecting){
         links.forEach(function(a){a.classList.remove('active');});
-        var l=document.querySelector('.side-nav a[href="#'+e.target.id+'"]');
+        var id=e.target.getAttribute('id');
+        var l=document.querySelector('.side-nav a[href="#'+id+'"]');
         if(l)l.classList.add('active');
       }
     });
